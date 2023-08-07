@@ -1,5 +1,4 @@
-
-       <h1>Mark down</h1>
+ 
 ## Table Definition: Product
 
 | Column          | Type          | Attributes      | Description                           |
