@@ -26,7 +26,7 @@ public class ProductValidator {
 	 */
 	public static boolean validate(Product product) throws CustomExpection {
 
-		if (product.equals(null)) {
+		if (product==null) {
 			throw new CustomExpection(CustomErrors.INVALID_OBJECT_NULL);
 		}
 
