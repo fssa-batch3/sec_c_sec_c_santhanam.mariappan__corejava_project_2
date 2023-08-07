@@ -1,6 +1,7 @@
 package com.fssa.zanarts.validator;
 
 import java.util.regex.Matcher;
+
 import java.util.regex.Pattern;
 
 import com.fssa.zanarts.customexception.CustomErrors;
@@ -9,12 +10,23 @@ import com.fssa.zanarts.model.Dimension;
 import com.fssa.zanarts.model.Product;
 import com.fssa.zanarts.model.Product.Types;
 
+/**
+ * Provides methods for validating various attributes of a Product object.
+ */
+
 public class ProductValidator {
 
-//	validator for object
+	/**
+	 * Validates the given Product object.
+	 *
+	 * @param product The Product object to validate.
+	 * @return {@code true} if the Product is valid, otherwise throws a
+	 *         CustomException.
+	 * @throws CustomExpection If the Product is not valid.
+	 */
 	public static boolean validate(Product product) throws CustomExpection {
 
-		if (product == null) {
+		if (product.equals(null)) {
 			throw new CustomExpection(CustomErrors.INVALID_OBJECT_NULL);
 		}
 
@@ -26,13 +38,19 @@ public class ProductValidator {
 		validateurl(product.getUrl());
 //		validateDimension(product.getSize());
 		validCategory(product.getCategory());
-		
-		return true;
 
+		return true;
 
 	}
 
-//	validator for product name
+	/**
+	 * Validates a product name.
+	 *
+	 * @param productname The name of the product.
+	 * @return {@code true} if the name is valid, otherwise throws a
+	 *         CustomException.
+	 * @throws CustomExpection If the name is not valid.
+	 */
 	public static boolean validateName(String productname) throws CustomExpection {
 
 		if (productname == null || "".equals(productname.trim())) {
@@ -50,7 +68,13 @@ public class ProductValidator {
 		return true;
 	}
 
-//	valdiation for product id
+	/**
+	 * Validates a product ID.
+	 *
+	 * @param id The ID of the product.
+	 * @return {@code true} if the ID is valid, otherwise throws a CustomException.
+	 * @throws CustomExpection If the ID is not valid.
+	 */
 	public static boolean validateProductId(int id) throws CustomExpection {
 
 		if (id <= 0) {
@@ -61,16 +85,23 @@ public class ProductValidator {
 
 	}
 
-//	validator for Artist name
-	public static boolean validateArtistName(String Artistname) throws CustomExpection {
+	/**
+	 * Validates an artist name.
+	 *
+	 * @param artistName The name of the artist.
+	 * @return {@code true} if the artist name is valid, otherwise throws a
+	 *         CustomException.
+	 * @throws CustomExpection If the artist name is not valid.
+	 */
+	public static boolean validateArtistName(String artistName) throws CustomExpection {
 
-		if (Artistname == null || Artistname.trim() == " ") {
+		if (artistName == null || artistName.trim().equals("")) {
 			throw new CustomExpection(CustomErrors.INVALID_ARTISTNAME_NULL);
 		}
 
 		String nameregex = "^[A-Za-z ]{3,30}$";
 		Pattern pattern = Pattern.compile(nameregex);
-		Matcher matcher = pattern.matcher(Artistname);
+		Matcher matcher = pattern.matcher(artistName);
 		Boolean isMatch = matcher.matches();
 
 		if (isMatch)
@@ -80,16 +111,23 @@ public class ProductValidator {
 
 	}
 
-//	validate the  Description
-	public static boolean validateDescription(String Description) throws CustomExpection {
+	/**
+	 * Validates a product description.
+	 *
+	 * @param description The description of the product.
+	 * @return {@code true} if the description is valid, otherwise throws a
+	 *         CustomException.
+	 * @throws CustomExpection If the description is not valid.
+	 */
+	public static boolean validateDescription(String description) throws CustomExpection {
 
-		if (Description == null || "".equals(Description.trim())) {
+		if (description == null || "".equals(description.trim())) {
 			throw new CustomExpection(CustomErrors.INVALID_DESCRIPTION_NULL);
 		}
 
 		String regex = "^[A-Za-z ]{5,100}$";
 		Pattern pattern = Pattern.compile(regex);
-		Matcher matcher = pattern.matcher(Description);
+		Matcher matcher = pattern.matcher(description);
 		Boolean isMatch = matcher.matches();
 		if (isMatch) {
 			return true;
@@ -99,7 +137,14 @@ public class ProductValidator {
 
 	}
 
-//	validation for prize
+	/**
+	 * Validates a product price.
+	 *
+	 * @param price The price of the product.
+	 * @return {@code true} if the price is valid, otherwise throws a
+	 *         CustomException.
+	 * @throws CustomExpection If the price is not valid.
+	 */
 	public static boolean validatePrice(double price) throws CustomExpection {
 		if (price <= 0) {
 			throw new CustomExpection(CustomErrors.INVALID_PRICE);
@@ -107,7 +152,13 @@ public class ProductValidator {
 		return true;
 	}
 
-//	validation for Url
+	/**
+	 * Validates a URL.
+	 *
+	 * @param url The URL to validate.
+	 * @return {@code true} if the URL is valid, otherwise throws a CustomException.
+	 * @throws CustomExpection If the URL is not valid.
+	 */
 	public static boolean validateurl(String url) throws CustomExpection {
 		if (url == null || "".equals(url.trim())) {
 			throw new CustomExpection(CustomErrors.INVALID_NULL_URL);
@@ -126,6 +177,15 @@ public class ProductValidator {
 		throw new CustomExpection(CustomErrors.INVALID_URL);
 	}
 
+	/**
+	 * Validates a Dimension object.
+	 *
+	 * @param dm The Dimension object to validate.
+	 * @return {@code true} if the Dimension is valid, otherwise throws a
+	 *         CustomException.
+	 * @throws CustomExpection If the Dimension is not valid.
+	 */
+
 	public static boolean validateDimension(Dimension dm) throws CustomExpection {
 
 		if (dm.getHeight() <= 300 || dm.getHeight() >= 700) {
@@ -140,7 +200,14 @@ public class ProductValidator {
 
 	}
 
-//	for enum
+	/**
+	 * Validates a product category.
+	 *
+	 * @param types The category to validate.
+	 * @return {@code true} if the category is valid, otherwise throws a
+	 *         CustomException.
+	 * @throws CustomExpection If the category is not valid.
+	 */
 	public static boolean validCategory(String types) throws CustomExpection {
 		for (Types enumValue : Types.values()) {
 			if (enumValue.name().equalsIgnoreCase(types)) {

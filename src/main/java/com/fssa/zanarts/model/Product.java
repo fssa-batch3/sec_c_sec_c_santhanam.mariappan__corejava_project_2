@@ -4,9 +4,13 @@ import java.time.LocalDateTime;
 
 /**
  * 
- * @author SanthanamMariappan Model object for my project "Product"
+ * @author Santhanam Mariappan // Model object for my project "Product"
+ *         Represents a product in the Zanarts project. This class encapsulates
+ *         various attributes of a product, such as its name, artist, price, and
+ *         more.
  *
  */
+
 public class Product {
 
 //	Declaring attributes
@@ -19,14 +23,30 @@ public class Product {
 	private String productDescription;
 	private String imageurl;
 	private Dimension size;
-	
-//	ennum for categories of art
-	
+
+	/**
+	 * Enumerates the different types of art categories.
+	 */
+
 	private String category;
 
 	public enum Types {
 		MANDANA, WATERCOLOUR, SKETCH, REALISM, HYPERREALISM;
 	}
+
+	/**
+	 * Constructs a new Product instance with specified attributes.
+	 *
+	 * @param id                 The unique identifier of the product.
+	 * @param productName        The name of the product.
+	 * @param artistName         The name of the artist who created the product.
+	 * @param price              The price of the product.
+	 * @param uploadTime         The date and time when the product was uploaded.
+	 * @param productDescription A description of the product.
+	 * @param imageUrl           The URL to the image representing the product.
+	 * @param size               The dimensions of the product.
+	 * @param category           The category of the product.
+	 */
 
 	public Product(int id, String productname, String artistname, double price, LocalDateTime uploadTime,
 			String productDescription, String imageurl, Dimension size, String category) {
@@ -41,13 +61,17 @@ public class Product {
 		this.size = size;
 		this.category = category;
 	}
-	 
+
+	/**
+	 * Default constructor for Product class.
+	 */
 	public Product() {
 
 	}
-//	setting and getting the values
+	// Getters and setters for attributes
 
- 
+	// ... (Getters and setters for other attributes)
+
 	public String getImageurl() {
 		return imageurl;
 	}
@@ -113,7 +137,7 @@ public class Product {
 	}
 
 	public String getCategory() {
-		return category ;
+		return category;
 	}
 
 	public void setCategory(String category) {

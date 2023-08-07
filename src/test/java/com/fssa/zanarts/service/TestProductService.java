@@ -9,7 +9,12 @@ import com.fssa.zanarts.customexception.CustomExpection;
 import com.fssa.zanarts.model.Dimension;
 import com.fssa.zanarts.model.Product;
 
+/**
+ * Unit tests for the ProductService class.
+ */
 public class TestProductService {
+
+	@Test
 	public static Product validProduct() {
 		Dimension dm = new Dimension(100, 100);
 		Product product = new Product();
@@ -22,7 +27,7 @@ public class TestProductService {
 		product.setProductDescription("Santhanam is my frist art");
 		product.setUrl("https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg");
 		product.setUploadTime(null);
-		
+
 		return product;
 	}
 //
@@ -42,7 +47,12 @@ public class TestProductService {
 //		return product;
 //	}
 
-//	Add
+	/**
+	 * Test adding a valid product.
+	 *
+	 * @throws CustomExpection If a custom exception occurs.
+	 * @throws SQLException    If an SQL exception occurs.
+	 */
 	@Test
 	public void testValidAddProduct() throws CustomExpection, SQLException {
 
@@ -51,7 +61,12 @@ public class TestProductService {
 
 	}
 
-//	update
+	/**
+	 * Test updating a valid product.
+	 *
+	 * @throws CustomExpection If a custom exception occurs.
+	 * @throws SQLException    If an SQL exception occurs.
+	 */
 
 	@Test
 	public void testValidUpdateProduct() throws CustomExpection, SQLException {
@@ -59,7 +74,13 @@ public class TestProductService {
 		Assertions.assertTrue(ProductService.updateProduct(testProduct.validProduct()));
 	}
 
-//	delete
+	/**
+	 * Test deleting a valid product.
+	 *
+	 * @throws CustomExpection        If a custom exception occurs.
+	 * @throws SQLException           If an SQL exception occurs.
+	 * @throws IllegalAccessException If an IllegalAccessException occurs.
+	 */
 	@Test
 	public void testValidDeleteProduct() throws CustomExpection, SQLException, IllegalAccessException {
 		Assertions.assertTrue(ProductService.deleteProduct(70));

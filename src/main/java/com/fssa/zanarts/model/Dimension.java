@@ -1,6 +1,9 @@
 package com.fssa.zanarts.model;
 
-//create a object for representing size
+/**
+ * Represents the dimensions (height and width) of an object, such as a product
+ * or an image.
+ */
 
 public class Dimension {
 
@@ -12,6 +15,12 @@ public class Dimension {
 		this.width = width;
 	}
 
+	/**
+	 * Constructs a new Dimension instance with specified height and width.
+	 *
+	 * @param height The height value.
+	 * @param width  The width value.
+	 */
 	public Dimension() {
 		// TODO Auto-generated constructor stub
 	}
@@ -33,4 +42,3 @@ public class Dimension {
 	}
 
 }
- 

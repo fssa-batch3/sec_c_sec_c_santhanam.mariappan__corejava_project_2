@@ -57,7 +57,6 @@ public class ProductDao {
 		if (product.getId() <= 0) {
 			throw new CustomExpection(CustomErrors.INVALID_PRODUCTID);
 		}
-
 		try (Connection con = ConnectionUtil.getConnection()) {
 
 			final String query = "UPDATE products SET productname = ?, price = ?, productDescription = ?, imageurl = ?, category = ?, width = ?, height = ? WHERE id = ?";
