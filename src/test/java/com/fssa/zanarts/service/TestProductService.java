@@ -13,10 +13,10 @@ import com.fssa.zanarts.model.Types;
 /**
  * Unit tests for the ProductService class.
  */
-public class TestProductService {
+class TestProductService { 
 
-	@Test
-	public static Product validProduct() {
+	
+	 static Product validProduct() {
 		Dimension dm = new Dimension(100, 100);
 		Product product = new Product();
 		product.setProductname("Bharathi");
@@ -39,7 +39,7 @@ public class TestProductService {
 	 * @throws SQLException    If an SQL exception occurs.
 	 */
 	@Test
-	public void testValidAddProduct() throws CustomExpection, SQLException {
+	void testValidAddProduct() throws CustomExpection, SQLException {
 
 		TestProductService testProduct = new TestProductService();
 		Assertions.assertTrue(ProductService.addproduct(testProduct.validProduct()));
@@ -54,7 +54,7 @@ public class TestProductService {
 	 */
 
 	@Test
-	public void testValidUpdateProduct() throws CustomExpection, SQLException {
+	void testValidUpdateProduct() throws CustomExpection, SQLException {
 		TestProductService testProduct = new TestProductService();
 		Assertions.assertTrue(ProductService.updateProduct(testProduct.validProduct()));
 	}
@@ -67,13 +67,13 @@ public class TestProductService {
 	 * @throws IllegalAccessException If an IllegalAccessException occurs.
 	 */
 	@Test
-	public void testValidDeleteProduct() throws CustomExpection, SQLException, IllegalAccessException {
+	void testValidDeleteProduct() throws CustomExpection, SQLException, IllegalAccessException {
 		Assertions.assertTrue(ProductService.deleteProduct(70));
 	}
 
 //	view
 	@Test
-	public void testValidGetAllProductDetails() throws CustomExpection, SQLException {
+	void testValidGetAllProductDetails() throws CustomExpection, SQLException {
 		ProductService productSer = new ProductService();
 		Assertions.assertTrue(productSer.getAllProductDetails());
 	}

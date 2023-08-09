@@ -81,18 +81,4 @@ public class ProductService {
 		return true;
 	}
 
-	public static void main(String[] args) throws SQLException, CustomExpection, IllegalAccessException {
-
-		Dimension dm = new Dimension();
-		dm.setHeight(320);
-		dm.setWidth(1100);
-		Product p = new Product(90, "SanthuBliss", "Ram", 300.0, LocalDateTime.now(), "This Art Designed by I",
-				"https://www.timeoutdubai.com/cloud/timeoutdubai/2021/09/11/udHvbKwV-IMG-Dubai-UAE-1-1200x800.jpg", dm,
-				Types.MANDANA);
-
-		Logger.info(deleteProduct(34));
-		
-
-	}
-
 }

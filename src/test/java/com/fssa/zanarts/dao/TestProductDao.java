@@ -17,10 +17,10 @@ import com.fssa.zanarts.model.Types;
  * Unit tests for the ProductDao class.
  */
 
-public class TestProductDao {
+class TestProductDao {
 
 	// Create a valid Product for testing purposes
-	@Test
+
 	public static Product validProduct() {
 		Dimension dm = new Dimension(100, 100);
 		Product product = new Product();
@@ -39,8 +39,8 @@ public class TestProductDao {
 	}
 
 	// Create an invalid Product for negative testing
-	@Test
-	public static Product invalidProduct() {
+
+	Product invalidProduct() {
 		Dimension dm = new Dimension(100, 100);
 		Product product = new Product();
 		product.setProductname("");
@@ -59,25 +59,25 @@ public class TestProductDao {
 
 	// Test the 'addProduct' method with a valid Product
 	@Test
-	public void testValidAddProduct() throws SQLException {
+	void testValidAddProduct() throws SQLException {
 		Assertions.assertTrue(ProductDao.addProduct(validProduct()));
 	}
 
 	// Test the 'updateProduct' method with a valid Product
 	@Test
-	public void testValidUpdateProduct() throws SQLException, CustomExpection {
+	void testValidUpdateProduct() throws SQLException, CustomExpection {
 		Assertions.assertTrue(ProductDao.updateProduct(validProduct()));
 	}
 
 	// Test the 'deleteProduct' method with a valid Product ID
 	@Test
-	public void testValidDeleteProduct() throws SQLException {
+	void testValidDeleteProduct() throws SQLException {
 		Assertions.assertTrue(ProductDao.deleteProduct(validProduct().getId()));
 	}
 
 	// Test the 'getAllProductDetails' method to get all product details
 	@Test
-	public void testValidGetProductDetails() throws SQLException {
+	void testValidGetProductDetails() throws SQLException {
 		ProductDao pd = new ProductDao();
 		Assertions.assertTrue(ProductDao.getAllProductDetails());
 	}
@@ -90,7 +90,7 @@ public class TestProductDao {
 	 * @throws CustomExpection If a custom exception occurs.
 	 */
 	@Test
-	public void testInvalidAddProduct() throws SQLException {
+	void testInvalidAddProduct() throws SQLException {
 
 		try {
 			ProductDao.addProduct(invalidProduct());
@@ -109,7 +109,7 @@ public class TestProductDao {
 	 * @throws SQLException    If an SQL exception occurs.
 	 * @throws CustomExpection If a custom exception occurs.
 	 */
-	public void testInvalidUpdateProductId() throws DAOException, SQLException, CustomExpection {
+	void testInvalidUpdateProductId() throws DAOException, SQLException, CustomExpection {
 		// Expecting the method to throw an SQLException with a specific error message
 		try {
 			Product product = new Product();
@@ -130,7 +130,7 @@ public class TestProductDao {
 	 */
 
 	@Test
-	public void testInvalidDeltProductId() throws CustomExpection, DAOException, SQLException {
+	void testInvalidDeltProductId() throws CustomExpection, DAOException, SQLException {
 
 		try {
 			ProductDao.deleteProduct(invalidProduct().getId());
