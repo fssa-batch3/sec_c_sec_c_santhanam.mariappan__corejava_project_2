@@ -2,6 +2,8 @@ package com.fssa.zanarts.model;
 
 import java.time.LocalDateTime;
 
+import com.fssa.zanarts.enumclass.Types;
+
 /**
  * 
  * @author Santhanam Mariappan // Model object for my project "Product"

@@ -1,11 +1,10 @@
 package com.fssa.zanarts.validator;
 
 import java.util.regex.Matcher;
-
 import java.util.regex.Pattern;
 
 import com.fssa.zanarts.customexception.CustomErrors;
-import com.fssa.zanarts.customexception.CustomExpection;
+import com.fssa.zanarts.customexception.ProductExpection;
 import com.fssa.zanarts.model.Dimension;
 import com.fssa.zanarts.model.Product;
 
@@ -23,15 +22,15 @@ public class ProductValidator {
 	 *         CustomException.
 	 * @throws CustomExpection If the Product is not valid.
 	 */
-	public static boolean validate(Product product) throws CustomExpection {
+	public static boolean validate(Product product) throws ProductExpection {
 
-		if (product==null) {
-			throw new CustomExpection(CustomErrors.INVALID_OBJECT_NULL);
+		if (product == null) {
+			throw new ProductExpection(CustomErrors.INVALID_OBJECT_NULL);
 		}
-
+ 
 		validateName(product.getProductname());
 		validateProductId(product.getId());
-		validateArtistName(product.getArtistname()); 
+		validateArtistName(product.getArtistname());
 		validateDescription(product.getProductDescription());
 		validatePrice(product.getPrice());
 		validateurl(product.getUrl());
@@ -50,10 +49,10 @@ public class ProductValidator {
 	 *         CustomException.
 	 * @throws CustomExpection If the name is not valid.
 	 */
-	public static boolean validateName(String productName) throws CustomExpection {
+	public static boolean validateName(String productName) throws ProductExpection {
 
 		if (productName == null || "".equals(productName.trim())) {
-			throw new CustomExpection(CustomErrors.INVALID_PRODUCTNAME_NULL);
+			throw new ProductExpection(CustomErrors.INVALID_PRODUCTNAME_NULL);
 		}
 
 		String nameregex = "^[A-Za-z]{5,20}$";
@@ -62,22 +61,22 @@ public class ProductValidator {
 		Boolean isMatch = matcher.matches();
 
 		if (!isMatch)
-			throw new CustomExpection(CustomErrors.INVALID_LENGTH_PRODUCT_NAME);
+			throw new ProductExpection(CustomErrors.INVALID_LENGTH_PRODUCT_NAME);
 
 		return true;
 	}
 
-	/** 
+	/**
 	 * Validates a product ID.
 	 *
 	 * @param id The ID of the product.
 	 * @return {@code true} if the ID is valid, otherwise throws a CustomException.
 	 * @throws CustomExpection If the ID is not valid.
 	 */
-	public static boolean validateProductId(int id) throws CustomExpection {
+	public static boolean validateProductId(int id) throws ProductExpection {
 
 		if (id <= 0) {
-			throw new CustomExpection(CustomErrors.INVALID_PRODUCTID);
+			throw new ProductExpection(CustomErrors.INVALID_PRODUCTID);
 		}
 
 		return true;
@@ -92,10 +91,10 @@ public class ProductValidator {
 	 *         CustomException.
 	 * @throws CustomExpection If the artist name is not valid.
 	 */
-	public static boolean validateArtistName(String artistName) throws CustomExpection {
+	public static boolean validateArtistName(String artistName) throws ProductExpection {
 
-		if (artistName == null || "".equals(artistName.trim())) { //"".equals(productname.trim())
-			throw new CustomExpection(CustomErrors.INVALID_ARTISTNAME_NULL);
+		if (artistName == null || "".equals(artistName.trim())) { // "".equals(productname.trim())
+			throw new ProductExpection(CustomErrors.INVALID_ARTISTNAME_NULL);
 		}
 
 		String nameregex = "^[A-Za-z ]{3,30}$";
@@ -106,7 +105,7 @@ public class ProductValidator {
 		if (isMatch)
 			return true;
 
-		throw new CustomExpection(CustomErrors.INVALID_ARTIST_NAME);
+		throw new ProductExpection(CustomErrors.INVALID_ARTIST_NAME);
 
 	}
 
@@ -118,10 +117,10 @@ public class ProductValidator {
 	 *         CustomException.
 	 * @throws CustomExpection If the description is not valid.
 	 */
-	public static boolean validateDescription(String description) throws CustomExpection {
+	public static boolean validateDescription(String description) throws ProductExpection {
 
 		if (description == null || "".equals(description.trim())) {
-			throw new CustomExpection(CustomErrors.INVALID_DESCRIPTION_NULL);
+			throw new ProductExpection(CustomErrors.INVALID_DESCRIPTION_NULL);
 		}
 
 		String regex = "^[A-Za-z ]{5,100}$";
@@ -132,7 +131,7 @@ public class ProductValidator {
 			return true;
 		}
 
-		throw new CustomExpection(CustomErrors.INVALID_DESCRIPTION);
+		throw new ProductExpection(CustomErrors.INVALID_DESCRIPTION);
 
 	}
 
@@ -144,9 +143,9 @@ public class ProductValidator {
 	 *         CustomException.
 	 * @throws CustomExpection If the price is not valid.
 	 */
-	public static boolean validatePrice(double price) throws CustomExpection {
+	public static boolean validatePrice(double price) throws ProductExpection {
 		if (price <= 0) {
-			throw new CustomExpection(CustomErrors.INVALID_PRICE);
+			throw new ProductExpection(CustomErrors.INVALID_PRICE);
 		}
 		return true;
 	}
@@ -158,9 +157,9 @@ public class ProductValidator {
 	 * @return {@code true} if the URL is valid, otherwise throws a CustomException.
 	 * @throws CustomExpection If the URL is not valid.
 	 */
-	public static boolean validateurl(String url) throws CustomExpection {
+	public static boolean validateurl(String url) throws ProductExpection {
 		if (url == null || "".equals(url.trim())) {
-			throw new CustomExpection(CustomErrors.INVALID_NULL_URL);
+			throw new ProductExpection(CustomErrors.INVALID_NULL_URL);
 
 		}
 
@@ -173,7 +172,7 @@ public class ProductValidator {
 		if (isMatch) {
 			return true;
 		}
-		throw new CustomExpection(CustomErrors.INVALID_URL);
+		throw new ProductExpection(CustomErrors.INVALID_URL);
 	}
 
 	/**
@@ -185,14 +184,14 @@ public class ProductValidator {
 	 * @throws CustomExpection If the Dimension is not valid.
 	 */
 
-	public static boolean validateDimension(Dimension dm) throws CustomExpection {
+	public static boolean validateDimension(Dimension dm) throws ProductExpection {
 
 		if (dm.getHeight() <= 300 || dm.getHeight() >= 700) {
-			throw new CustomExpection(CustomErrors.INVALID_WIDTH_AND_HEIGHT);
+			throw new ProductExpection(CustomErrors.INVALID_WIDTH_AND_HEIGHT);
 		}
 
 		if (dm.getWidth() <= 500 || dm.getWidth() >= 1200) {
-			throw new CustomExpection(CustomErrors.INVALID_WIDTH_AND_HEIGHT);
+			throw new ProductExpection(CustomErrors.INVALID_WIDTH_AND_HEIGHT);
 		}
 
 		return true;
@@ -207,6 +206,5 @@ public class ProductValidator {
 	 *         CustomException.
 	 * @throws CustomExpection If the category is not valid.
 	 */
- 
 
 }

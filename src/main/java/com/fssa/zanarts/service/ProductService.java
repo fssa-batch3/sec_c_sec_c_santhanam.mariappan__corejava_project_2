@@ -2,11 +2,9 @@ package com.fssa.zanarts.service;
 
 import java.sql.SQLException;
 
-import com.fssa.zanarts.customexception.CustomExpection;
+import com.fssa.zanarts.customexception.ProductExpection;
 import com.fssa.zanarts.dao.ProductDao;
-
 import com.fssa.zanarts.model.Product;
-
 import com.fssa.zanarts.validator.ProductValidator;
 
 /**
@@ -14,7 +12,7 @@ import com.fssa.zanarts.validator.ProductValidator;
  */
 
 public class ProductService {
-
+ 
 	/**
 	 * Adds a new product to the database.
 	 *
@@ -25,7 +23,7 @@ public class ProductService {
 	 * @throws CustomExpection If there is a custom validation error.
 	 */
 
-	public static boolean addproduct(Product product) throws SQLException, CustomExpection {
+	public static boolean addproduct(Product product) throws SQLException, ProductExpection {
 		if (ProductValidator.validate(product)) {
 			ProductDao.addProduct(product);
 		}
@@ -41,7 +39,7 @@ public class ProductService {
 	 * @throws SQLException    If a database error occurs.
 	 * @throws CustomExpection If there is a custom validation error.
 	 */
-	public static boolean updateProduct(Product product) throws SQLException, CustomExpection {
+	public static boolean updateProduct(Product product) throws SQLException, ProductExpection {
 		if (ProductValidator.validate(product)) {
 			ProductDao.updateProduct(product);
 		}
@@ -56,7 +54,7 @@ public class ProductService {
 	 * @throws SQLException    If a database error occurs.
 	 * @throws CustomExpection If there is a custom validation error.
 	 */
-	public static boolean getAllProductDetails() throws SQLException {
+	public static boolean getAllProductDetails() throws SQLException, ProductExpection {
 		ProductDao.getAllProductDetails();
 		return true;
 	}
@@ -72,7 +70,7 @@ public class ProductService {
 	 *                                restrictions.
 	 * @throws CustomExpection        If there is a custom validation error.
 	 */
-	public static boolean deleteProduct(int productId) throws SQLException, CustomExpection {
+	public static boolean deleteProduct(int productId) throws SQLException, ProductExpection {
 		if (ProductValidator.validateProductId(productId)) {
 			ProductDao.deleteProduct(productId);
 		}

@@ -3,6 +3,7 @@ package com.fssa.zanarts.dao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
+import com.fssa.zanarts.customexception.ProductExpection;
 import com.fssa.zanarts.logger.Logger;
 
 import io.github.cdimascio.dotenv.Dotenv;
@@ -15,13 +16,13 @@ import io.github.cdimascio.dotenv.Dotenv;
  */
 public class ConnectionUtil {
 
-	public static Connection getConnection() {
+	public static Connection getConnection() throws ProductExpection {
 		Connection con = null;
 
 		String url;
 		String userName;
 		String passWord;
- 
+
 		if (System.getenv("CI") != null) {
 			url = System.getenv("DATABASE_HOST");
 			userName = System.getenv("DATABASE_USERNAME");
@@ -39,12 +40,12 @@ public class ConnectionUtil {
 			Logger.info("Connected to database");
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new RuntimeException("Unable to connect to the database");
+			throw new ProductExpection("Unable to connect to the database");
 		}
 		return con;
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws ProductExpection {
 		getConnection();
 	}
 

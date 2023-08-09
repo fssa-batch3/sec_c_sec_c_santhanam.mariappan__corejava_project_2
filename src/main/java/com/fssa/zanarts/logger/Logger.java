@@ -1,9 +1,10 @@
 package com.fssa.zanarts.logger;
 
-/**
- * Utility class for logging information to the console.
- */
 public class Logger {
+	// Private constructor to hide the implicit public one
+	private Logger() {
+		// Private constructor to prevent instantiation
+	}
 
 	/**
 	 * Logs the provided object's string representation to the console as an

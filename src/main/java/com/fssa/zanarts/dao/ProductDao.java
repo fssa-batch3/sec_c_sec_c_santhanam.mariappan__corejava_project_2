@@ -7,19 +7,20 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import com.fssa.zanarts.customexception.CustomErrors;
-import com.fssa.zanarts.customexception.CustomExpection;
+import com.fssa.zanarts.customexception.ProductExpection;
 import com.fssa.zanarts.model.Product;
 
 public class ProductDao {
-
+ 
 	/**
 	 * @author Santhanam Mariappan Method to add a product table to the database.
 	 *
 	 * @return true if the product was added successfully.
-	 * @throws SQLException if there's an error with the database operation.
+	 * @throws SQLException    if there's an error with the database operation.
+	 * @throws CustomExpection
 	 */
 
-	public static boolean addProduct(Product product) throws SQLException {
+	public static boolean addProduct(Product product) throws SQLException, ProductExpection {
 
 		try (Connection con = ConnectionUtil.getConnection()) {
 
@@ -31,7 +32,7 @@ public class ProductDao {
 				pst.setDouble(3, product.getPrice());
 				pst.setString(4, product.getProductDescription());
 				pst.setString(5, product.getImageurl());
-				pst.setString(6, product.getCategory().getArtTypes());
+				pst.setString(6, product.getCategory().getTypes());
 				pst.setInt(7, product.getSize().getWidth());
 				pst.setInt(8, product.getSize().getHeight());
 
@@ -52,10 +53,10 @@ public class ProductDao {
 	// Returns true if the product was updated successfully, false otherwise.
 	// Throws SQLException if there's an error with the database operation.
 
-	public static boolean updateProduct(Product product) throws SQLException, CustomExpection {
+	public static boolean updateProduct(Product product) throws SQLException, ProductExpection {
 
 		if (product.getId() <= 0) {
-			throw new CustomExpection(CustomErrors.INVALID_PRODUCTID);
+			throw new ProductExpection(CustomErrors.INVALID_PRODUCTID);
 		}
 		try (Connection con = ConnectionUtil.getConnection()) {
 
@@ -66,7 +67,7 @@ public class ProductDao {
 				pst.setDouble(2, product.getPrice());
 				pst.setString(3, product.getProductDescription());
 				pst.setString(4, product.getImageurl());
-				pst.setString(5, product.getCategory().getArtTypes());
+				pst.setString(5, product.getCategory().getTypes());
 				pst.setInt(6, product.getSize().getWidth());
 				pst.setInt(7, product.getSize().getHeight());
 				pst.setInt(8, product.getId());
@@ -88,7 +89,7 @@ public class ProductDao {
 	// Returns true if the product was deleted successfully, false otherwise.
 	// Throws SQLException if there's an error with the database operation.
 
-	public static boolean deleteProduct(int productId) throws SQLException {
+	public static boolean deleteProduct(int productId) throws SQLException, ProductExpection {
 
 		try (Connection con = ConnectionUtil.getConnection()) {
 
@@ -111,7 +112,7 @@ public class ProductDao {
 
 	// Method to retrieve and print all product details from the database.
 	// Throws SQLException if there's an error with the database operation.
-	public static boolean getAllProductDetails() throws SQLException {
+	public static boolean getAllProductDetails() throws SQLException, ProductExpection {
 
 		try (Connection con = ConnectionUtil.getConnection()) {
 

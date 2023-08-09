@@ -5,10 +5,10 @@ import java.sql.SQLException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import com.fssa.zanarts.customexception.CustomExpection;
+import com.fssa.zanarts.customexception.ProductExpection;
+import com.fssa.zanarts.enumclass.Types;
 import com.fssa.zanarts.model.Dimension;
 import com.fssa.zanarts.model.Product;
-import com.fssa.zanarts.model.Types;
 
 /**
  * Unit tests for the ProductService class.
@@ -39,7 +39,7 @@ class TestProductService {
 	 * @throws SQLException    If an SQL exception occurs.
 	 */
 	@Test
-	void testValidAddProduct() throws CustomExpection, SQLException {
+	void testValidAddProduct() throws ProductExpection, SQLException {
 
 		TestProductService testProduct = new TestProductService();
 		Assertions.assertTrue(ProductService.addproduct(testProduct.validProduct()));
@@ -54,7 +54,7 @@ class TestProductService {
 	 */
 
 	@Test
-	void testValidUpdateProduct() throws CustomExpection, SQLException {
+	void testValidUpdateProduct() throws ProductExpection, SQLException {
 		TestProductService testProduct = new TestProductService();
 		Assertions.assertTrue(ProductService.updateProduct(testProduct.validProduct()));
 	}
@@ -67,13 +67,13 @@ class TestProductService {
 	 * @throws IllegalAccessException If an IllegalAccessException occurs.
 	 */
 	@Test
-	void testValidDeleteProduct() throws CustomExpection, SQLException, IllegalAccessException {
+	void testValidDeleteProduct() throws ProductExpection, SQLException, IllegalAccessException {
 		Assertions.assertTrue(ProductService.deleteProduct(70));
 	}
 
 //	view
 	@Test
-	void testValidGetAllProductDetails() throws CustomExpection, SQLException {
+	void testValidGetAllProductDetails() throws ProductExpection, SQLException {
 		ProductService productSer = new ProductService();
 		Assertions.assertTrue(productSer.getAllProductDetails());
 	}

@@ -1,7 +1,10 @@
 package com.fssa.zanarts.customexception;
 
 public class CustomErrors {
-
+    private   CustomErrors()
+    {
+    	
+    }
 //	Representing the null object error
 	public static final String INVALID_OBJECT_NULL = "Object can't be null or empty";
 

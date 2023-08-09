@@ -1,21 +1,18 @@
 package com.fssa.zanarts.validator;
 
-import java.time.LocalDateTime;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import com.fssa.zanarts.customexception.CustomErrors;
-import com.fssa.zanarts.customexception.CustomExpection;
-
+import com.fssa.zanarts.customexception.ProductExpection;
+import com.fssa.zanarts.enumclass.Types;
 import com.fssa.zanarts.model.Dimension;
 import com.fssa.zanarts.model.Product;
-import com.fssa.zanarts.model.Types;
 
 /**
  * Test class for ProductValidator with various test cases.
  */
- class TestProductValidator {
+class TestProductValidator {
 	/**
 	 * Valid test case for validating a product.
 	 *
@@ -23,7 +20,7 @@ import com.fssa.zanarts.model.Types;
 	 */
 
 	@Test
- void testValidate() throws CustomExpection {
+	void testValidate() throws ProductExpection {
 		try {
 			Dimension dm = new Dimension(100, 100);
 
@@ -40,7 +37,7 @@ import com.fssa.zanarts.model.Types;
 
 			ProductValidator productvalidator = new ProductValidator();
 			Assertions.assertTrue(productvalidator.validate(product));
-		} catch (CustomExpection ex) {
+		} catch (ProductExpection ex) {
 			ex.getMessage();
 		}
 	}
@@ -52,11 +49,11 @@ import com.fssa.zanarts.model.Types;
 	 */
 
 	@Test
-	  void inValidTestValidate() {
+	void inValidTestValidate() {
 		ProductValidator productValidator = new ProductValidator();
 		try {
 			productValidator.validate(null);
-		} catch (CustomExpection ex) {
+		} catch (ProductExpection ex) {
 			Assertions.assertEquals(CustomErrors.INVALID_OBJECT_NULL, ex.getMessage());
 		}
 
@@ -66,11 +63,11 @@ import com.fssa.zanarts.model.Types;
 	 * Valid test case for product name validation.
 	 */
 	@Test
-	 void testValidProductName() {
+	void testValidProductName() {
 
 		try {
 			Assertions.assertTrue(ProductValidator.validateName("Santhanam"));
-		} catch (CustomExpection e) {
+		} catch (ProductExpection e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -82,14 +79,14 @@ import com.fssa.zanarts.model.Types;
 	 */
 
 	@Test
-  void testInValiateNullProductName() {
+	void testInValiateNullProductName() {
 
 		try {
 			ProductValidator.validateName(null);
 			Assertions.fail("Validation name failed");
 		}
 
-		catch (CustomExpection ex) {
+		catch (ProductExpection ex) {
 			Assertions.assertEquals(CustomErrors.INVALID_PRODUCTNAME_NULL, ex.getMessage());
 		}
 	}
@@ -99,13 +96,13 @@ import com.fssa.zanarts.model.Types;
 	 */
 
 	@Test
-	 void testInvalidatelengthProductName() {
+	void testInvalidatelengthProductName() {
 		try {
 			ProductValidator.validateName("s");
 
 			Assertions.fail("Validation name failed");
 
-		} catch (CustomExpection ex) {
+		} catch (ProductExpection ex) {
 
 			Assertions.assertEquals(CustomErrors.INVALID_LENGTH_PRODUCT_NAME, ex.getMessage());
 		}
@@ -115,11 +112,11 @@ import com.fssa.zanarts.model.Types;
 	 * Valid test case for product ID validation.
 	 */
 	@Test
-	 void testvalidProductId() {
+	void testvalidProductId() {
 
 		try {
 			Assertions.assertTrue(ProductValidator.validateProductId(1));
-		} catch (CustomExpection ex) {
+		} catch (ProductExpection ex) {
 			ex.printStackTrace();
 		}
 
@@ -129,11 +126,11 @@ import com.fssa.zanarts.model.Types;
 	 * Valid test case for Invalidproduct id
 	 */
 	@Test
- void testInvalidProductId() {
+	void testInvalidProductId() {
 		try {
 			ProductValidator.validateProductId(0);
 			Assertions.fail("ProductId validation failed");
-		} catch (CustomExpection ex) {
+		} catch (ProductExpection ex) {
 
 			Assertions.assertEquals(CustomErrors.INVALID_PRODUCTID, ex.getMessage());
 		}
@@ -143,11 +140,11 @@ import com.fssa.zanarts.model.Types;
 	 * Invalid test case for invalid product ID validation.
 	 */
 	@Test
-	public void testValidArtistName() {
+	 void testValidArtistName() {
 
 		try {
 			Assertions.assertTrue(ProductValidator.validateArtistName("Santhanam"));
-		} catch (CustomExpection e) {
+		} catch (ProductExpection e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -159,13 +156,13 @@ import com.fssa.zanarts.model.Types;
 	 */
 
 	@Test
-	public void testInvalidateArtistName() {
+	 void testInvalidateArtistName() {
 		try {
 			ProductValidator.validateArtistName(null);
 
 			Assertions.fail("Validation Artist name failed");
 
-		} catch (CustomExpection ex) {
+		} catch (ProductExpection ex) {
 
 			Assertions.assertEquals(CustomErrors.INVALID_ARTISTNAME_NULL, ex.getMessage());
 		}
@@ -176,13 +173,13 @@ import com.fssa.zanarts.model.Types;
 	 * 
 	 */
 	@Test
-	public void testInvalidatelengthArtistName() {
+	  void testInvalidatelengthArtistName() {
 		try {
 			ProductValidator.validateArtistName("s");
 
 			Assertions.fail("Validation name failed");
 
-		} catch (CustomExpection ex) {
+		} catch (ProductExpection ex) {
 
 			Assertions.assertEquals(CustomErrors.INVALID_ARTIST_NAME, ex.getMessage());
 		}
@@ -194,10 +191,10 @@ import com.fssa.zanarts.model.Types;
 
 	@Test
 
-	public void testValidDescription() {
+	  void testValidDescription() {
 		try {
 			Assertions.assertTrue(ProductValidator.validateDescription("santhanamkjbvdfvknfbflks"));
-		} catch (CustomExpection e) {
+		} catch (ProductExpection e) {
 			e.getMessage();
 		}
 
@@ -214,7 +211,7 @@ import com.fssa.zanarts.model.Types;
 
 			Assertions.fail(" Description validation name failed");
 
-		} catch (CustomExpection ex) {
+		} catch (ProductExpection ex) {
 
 			Assertions.assertEquals(CustomErrors.INVALID_DESCRIPTION_NULL, ex.getMessage());
 		}
@@ -225,13 +222,13 @@ import com.fssa.zanarts.model.Types;
 	 */
 
 	@Test
-	public void testInValidLengthDescription() {
+	  void testInValidLengthDescription() {
 		try {
 			ProductValidator.validateDescription("df");
 
 			Assertions.fail("Description validation name failed");
 
-		} catch (CustomExpection ex) {
+		} catch (ProductExpection ex) {
 
 			Assertions.assertEquals(CustomErrors.INVALID_DESCRIPTION, ex.getMessage());
 		}
@@ -242,7 +239,7 @@ import com.fssa.zanarts.model.Types;
 	 */
 
 	@Test
-	public void testValidprice() throws CustomExpection {
+	  void testValidprice() throws ProductExpection {
 		Assertions.assertTrue(ProductValidator.validatePrice(300));
 	}
 
@@ -250,11 +247,11 @@ import com.fssa.zanarts.model.Types;
 	 * Invalid testcase for price
 	 */
 	@Test
-	public void testInvalidprice() {
+	void testInvalidprice() {
 		try {
 			ProductValidator.validatePrice(-1);
 			Assertions.fail("Price validation failed");
-		} catch (CustomExpection ex) {
+		} catch (ProductExpection ex) {
 			Assertions.assertEquals(CustomErrors.INVALID_PRICE, ex.getMessage());
 		}
 	}
@@ -263,7 +260,7 @@ import com.fssa.zanarts.model.Types;
 	 * valid Testcase for url
 	 */
 	@Test
-	public void testvalidurl() throws CustomExpection {
+	void testvalidurl() throws ProductExpection {
 		Assertions.assertTrue(ProductValidator.validateurl(
 				"https://www.timeoutdubai.com/cloud/timeoutdubai/2021/09/11/udHvbKwV-IMG-Dubai-UAE-1-1200x800.jpg"));
 	}
@@ -272,13 +269,13 @@ import com.fssa.zanarts.model.Types;
 	 * Invalid Testcase for url
 	 */
 	@Test
-	public void testInvalidateNullUrl() {
+	void testInvalidateNullUrl() {
 		try {
 			ProductValidator.validateurl(null);
 
 			Assertions.fail("Validation Url failed");
 
-		} catch (CustomExpection ex) {
+		} catch (ProductExpection ex) {
 
 			Assertions.assertEquals(CustomErrors.INVALID_NULL_URL, ex.getMessage());
 		}
@@ -288,7 +285,7 @@ import com.fssa.zanarts.model.Types;
 	 * Invalid test case for URL validation.
 	 */
 	@Test
-	public void testInvalidateUrl() {
+	void testInvalidateUrl() {
 		try {
 			Product p = new Product();
 			p.setImageurl("vknsdkjvskvsdvwdv");
@@ -296,7 +293,7 @@ import com.fssa.zanarts.model.Types;
 
 			Assertions.fail("Validation Url failed");
 
-		} catch (CustomExpection ex) {
+		} catch (ProductExpection ex) {
 			Assertions.assertEquals(CustomErrors.INVALID_URL, ex.getMessage());
 		}
 	}
@@ -306,7 +303,7 @@ import com.fssa.zanarts.model.Types;
 	 */
 
 	@Test
-	public void testValidateDimension() throws CustomExpection {
+	void testValidateDimension() throws ProductExpection {
 		Dimension dm = new Dimension();
 		dm.setHeight(320);
 		dm.setWidth(1100);
@@ -318,14 +315,14 @@ import com.fssa.zanarts.model.Types;
 	 */
 
 	@Test
-	public void testInvalidateDimensionWidth() throws CustomExpection {
+	void testInvalidateDimensionWidth() throws ProductExpection {
 
 		try {
 			Dimension dm = new Dimension();
 			dm.setHeight(320);
 			dm.setWidth(0);
 			ProductValidator.validateDimension(dm);
-		} catch (CustomExpection ex) {
+		} catch (ProductExpection ex) {
 			Assertions.assertEquals(CustomErrors.INVALID_WIDTH_AND_HEIGHT, ex.getMessage());
 		}
 
@@ -336,54 +333,19 @@ import com.fssa.zanarts.model.Types;
 	 */
 
 	@Test
-	public void testInvalidateDimensionHeight() throws CustomExpection {
+	void testInvalidateDimensionHeight() throws ProductExpection {
 
 		try {
 			Dimension dm = new Dimension();
 			dm.setHeight(0);
 			dm.setWidth(520);
 			ProductValidator.validateDimension(dm);
-		} catch (CustomExpection ex) {
+		} catch (ProductExpection ex) {
 			Assertions.assertEquals(CustomErrors.INVALID_WIDTH_AND_HEIGHT, ex.getMessage());
 		}
 
 	}
 
-	/**
-	 * Valid test case for validating product category.
-	 */
-
-//	@Test
-//	public void testValidEnum() throws CustomExpection {
-//
-//		Product p = new Product();
-//		p.setCategory(Types.SKETCH);
-//		Assertions.assertTrue(ProductValidator.validCategory(p.getCategory()));
-//
-//	}
-//
-//	/**
-//	 * Invalid test case for invalidating product category.
-//	 */
-//	@Test
-//	public void testInValidEnum() throws CustomExpection {
-//
-//		try {
-//
-//			ProductValidator.validCategory("not");
-//		} catch (CustomExpection ex) {
-//			Assertions.assertEquals(CustomErrors.INVALID_ENUM, ex.getMessage());
-//		}
-//
-//	}
-
-//	valid testcase
-//	@Test
-//	public void testDateAndTest() {
-//		Product product = new Product();
-//		product.setUploadTime(LocalDateTime.now());
-//		LocalDateTime nowDate = product.getUploadTime();
-//		Assertions.assertEquals(nowDate, LocalDateTime.now());
-//	}
+	 
 
 }

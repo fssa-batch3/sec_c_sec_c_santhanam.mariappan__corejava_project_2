@@ -6,12 +6,11 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import com.fssa.zanarts.customexception.CustomErrors;
-import com.fssa.zanarts.customexception.CustomExpection;
 import com.fssa.zanarts.customexception.DAOException;
-
+import com.fssa.zanarts.customexception.ProductExpection;
+import com.fssa.zanarts.enumclass.Types;
 import com.fssa.zanarts.model.Dimension;
 import com.fssa.zanarts.model.Product;
-import com.fssa.zanarts.model.Types;
 
 /**
  * Unit tests for the ProductDao class.
@@ -59,25 +58,25 @@ class TestProductDao {
 
 	// Test the 'addProduct' method with a valid Product
 	@Test
-	void testValidAddProduct() throws SQLException {
+	void testValidAddProduct() throws SQLException, ProductExpection {
 		Assertions.assertTrue(ProductDao.addProduct(validProduct()));
 	}
 
 	// Test the 'updateProduct' method with a valid Product
 	@Test
-	void testValidUpdateProduct() throws SQLException, CustomExpection {
+	void testValidUpdateProduct() throws SQLException, ProductExpection {
 		Assertions.assertTrue(ProductDao.updateProduct(validProduct()));
 	}
 
 	// Test the 'deleteProduct' method with a valid Product ID
 	@Test
-	void testValidDeleteProduct() throws SQLException {
+	void testValidDeleteProduct() throws SQLException, ProductExpection {
 		Assertions.assertTrue(ProductDao.deleteProduct(validProduct().getId()));
 	}
 
 	// Test the 'getAllProductDetails' method to get all product details
 	@Test
-	void testValidGetProductDetails() throws SQLException {
+	void testValidGetProductDetails() throws SQLException, ProductExpection {
 		ProductDao pd = new ProductDao();
 		Assertions.assertTrue(ProductDao.getAllProductDetails());
 	}
@@ -90,7 +89,7 @@ class TestProductDao {
 	 * @throws CustomExpection If a custom exception occurs.
 	 */
 	@Test
-	void testInvalidAddProduct() throws SQLException {
+	void testInvalidAddProduct() throws SQLException, ProductExpection {
 
 		try {
 			ProductDao.addProduct(invalidProduct());
@@ -109,13 +108,13 @@ class TestProductDao {
 	 * @throws SQLException    If an SQL exception occurs.
 	 * @throws CustomExpection If a custom exception occurs.
 	 */
-	void testInvalidUpdateProductId() throws DAOException, SQLException, CustomExpection {
+	void testInvalidUpdateProductId() throws DAOException, SQLException, ProductExpection {
 		// Expecting the method to throw an SQLException with a specific error message
-		try {
+		try { 
 			Product product = new Product();
 			product.setId(-1);
 			ProductDao.updateProduct(product);
-		} catch (CustomExpection ex) {
+		} catch (ProductExpection ex) {
 			Assertions.assertEquals(CustomErrors.INVALID_PRODUCTID, ex.getMessage());
 		}
 
@@ -130,7 +129,7 @@ class TestProductDao {
 	 */
 
 	@Test
-	void testInvalidDeltProductId() throws CustomExpection, DAOException, SQLException {
+	void testInvalidDeltProductId() throws ProductExpection, DAOException, SQLException {
 
 		try {
 			ProductDao.deleteProduct(invalidProduct().getId());
