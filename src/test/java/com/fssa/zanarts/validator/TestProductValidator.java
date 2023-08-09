@@ -15,7 +15,7 @@ import com.fssa.zanarts.model.Types;
 /**
  * Test class for ProductValidator with various test cases.
  */
-public class TestProductValidator {
+ class TestProductValidator {
 	/**
 	 * Valid test case for validating a product.
 	 *
@@ -23,7 +23,7 @@ public class TestProductValidator {
 	 */
 
 	@Test
-	public void testValidate() throws CustomExpection {
+ void testValidate() throws CustomExpection {
 		try {
 			Dimension dm = new Dimension(100, 100);
 
@@ -52,7 +52,7 @@ public class TestProductValidator {
 	 */
 
 	@Test
-	public void inValidTestValidate() {
+	  void inValidTestValidate() {
 		ProductValidator productValidator = new ProductValidator();
 		try {
 			productValidator.validate(null);
@@ -66,7 +66,7 @@ public class TestProductValidator {
 	 * Valid test case for product name validation.
 	 */
 	@Test
-	public void testValidProductName() {
+	 void testValidProductName() {
 
 		try {
 			Assertions.assertTrue(ProductValidator.validateName("Santhanam"));
@@ -82,7 +82,7 @@ public class TestProductValidator {
 	 */
 
 	@Test
-	public void testInValiateNullProductName() {
+  void testInValiateNullProductName() {
 
 		try {
 			ProductValidator.validateName(null);
@@ -99,7 +99,7 @@ public class TestProductValidator {
 	 */
 
 	@Test
-	public void testInvalidatelengthProductName() {
+	 void testInvalidatelengthProductName() {
 		try {
 			ProductValidator.validateName("s");
 
@@ -115,7 +115,7 @@ public class TestProductValidator {
 	 * Valid test case for product ID validation.
 	 */
 	@Test
-	public void testvalidProductId() {
+	 void testvalidProductId() {
 
 		try {
 			Assertions.assertTrue(ProductValidator.validateProductId(1));
@@ -129,7 +129,7 @@ public class TestProductValidator {
 	 * Valid test case for Invalidproduct id
 	 */
 	@Test
-	public void testInvalidProductId() {
+ void testInvalidProductId() {
 		try {
 			ProductValidator.validateProductId(0);
 			Assertions.fail("ProductId validation failed");
