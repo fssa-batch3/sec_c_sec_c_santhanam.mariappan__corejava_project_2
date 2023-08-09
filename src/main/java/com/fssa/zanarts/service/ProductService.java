@@ -1,14 +1,12 @@
 package com.fssa.zanarts.service;
 
 import java.sql.SQLException;
-import java.time.LocalDateTime;
 
 import com.fssa.zanarts.customexception.CustomExpection;
 import com.fssa.zanarts.dao.ProductDao;
-import com.fssa.zanarts.logger.Logger;
-import com.fssa.zanarts.model.Dimension;
+
 import com.fssa.zanarts.model.Product;
-import com.fssa.zanarts.model.Types;
+
 import com.fssa.zanarts.validator.ProductValidator;
 
 /**

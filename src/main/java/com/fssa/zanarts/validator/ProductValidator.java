@@ -31,7 +31,7 @@ public class ProductValidator {
 
 		validateName(product.getProductname());
 		validateProductId(product.getId());
-		validateArtistName(product.getArtistname());
+		validateArtistName(product.getArtistname()); 
 		validateDescription(product.getProductDescription());
 		validatePrice(product.getPrice());
 		validateurl(product.getUrl());
@@ -207,14 +207,6 @@ public class ProductValidator {
 	 *         CustomException.
 	 * @throws CustomExpection If the category is not valid.
 	 */
-//	public static boolean validCategory(String types) throws CustomExpection {
-//		for (Types enumValue : Types.values()) {
-//			if (enumValue.name().equalsIgnoreCase(types)) {
-//				return true;
-//			}
-//		}
-//		throw new CustomExpection(CustomErrors.INVALID_ENUM);
-//
-//	}
+ 
 
 }
