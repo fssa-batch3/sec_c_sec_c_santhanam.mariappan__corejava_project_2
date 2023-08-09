@@ -22,6 +22,7 @@ public class ConnectionUtil {
         String userName;
         String passWord;
         try {
+            // Determine database connection parameters based on environment
             if (System.getenv("CI") != null) {
                 url = System.getenv("DATABASE_HOST");
                 userName = System.getenv("DATABASE_USERNAME");
@@ -33,6 +34,7 @@ public class ConnectionUtil {
                 passWord = env.get("DATABASE_PASSWORD");
             }
             
+            // Load the JDBC driver and establish the database connection
             Class.forName("com.mysql.cj.jdbc.Driver");
             con = DriverManager.getConnection(url, userName, passWord);
             Logger.info("Connected to database");
@@ -43,6 +45,7 @@ public class ConnectionUtil {
             e.printStackTrace();
             throw new ProductExpection("Unable to connect to the database");
         } finally {
+            // Close the connection in a finally block
             if (con != null) {
                 try {
                     con.close();
@@ -51,13 +54,15 @@ public class ConnectionUtil {
                 }
             }
         }
-        return con;
+        return con;  // Return the established connection
     }
 
     public static void main(String[] args) throws ProductExpection {
         try {
+            // Attempt to establish a database connection
             Connection connection = getConnection();
             // Use the database connection
+            // ...
         } catch (ProductExpection e) {
             e.printStackTrace();
         }
