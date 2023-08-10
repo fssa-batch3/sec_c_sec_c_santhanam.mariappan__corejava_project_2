@@ -34,15 +34,12 @@ public class ConnectionUtil {
 			userName = env.get("DATABASE_USERNAME");
 			passWord = env.get("DATABASE_PASSWORD");
 		}
-		try {
-			con = DriverManager.getConnection(url, userName, passWord);
-			Logger.info("Connected to database");
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new ProductExpection("Unable to connect to the database");
-		}
-
-		return con;
+		 try {
+	            return DriverManager.getConnection(url, userName, passWord);
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	            throw new ProductExpection("Unable to connect to the database");
+	        }
 	}
 
 	private ConnectionUtil() {
