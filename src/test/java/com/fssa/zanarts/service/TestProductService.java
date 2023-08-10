@@ -78,17 +78,6 @@ class TestProductService {
 		Assertions.assertTrue(productSer.getAllProductDetails());
 	}
 
-//invalid 
-//
-//	@Test
-//	public void testINvalidAddProduct() throws customExpection, SQLException {
-//
-//		try {
-//			ProductService.addproduct(inValidProduct());
-//		} catch (customExpection ex) {
-////			ToDo  Message 
-//			Assertions.assertEquals("", ex.getMessage());
-//		}
-//	}
+ 
 
 }

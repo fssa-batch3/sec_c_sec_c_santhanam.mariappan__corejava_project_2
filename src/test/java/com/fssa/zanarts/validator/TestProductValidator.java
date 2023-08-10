@@ -205,7 +205,7 @@ class TestProductValidator {
 	 */
 
 	@Test
-	public void testInValidNullDescription() {
+	  void testInValidNullDescription() {
 		try {
 			ProductValidator.validateDescription(null);
 

@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 import com.fssa.zanarts.customexception.ProductExpection;
-import com.fssa.zanarts.logger.Logger;
+ 
 import io.github.cdimascio.dotenv.Dotenv;
 
 /**
@@ -20,7 +20,7 @@ public class ConnectionUtil {
 	 * @throws ProductExpection If unable to connect to the database.
 	 */
 	public static Connection getConnection() throws ProductExpection {
-		Connection con = null;
+ 
 		String url;
 		String userName;
 		String passWord;
