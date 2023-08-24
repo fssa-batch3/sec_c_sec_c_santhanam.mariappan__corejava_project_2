@@ -11,7 +11,7 @@ import com.fssa.zanarts.customexception.ProductExpection;
 import com.fssa.zanarts.model.Product;
 
 public class ProductDao {
- 
+
 	/**
 	 * @author Santhanam Mariappan Method to add a product table to the database.
 	 *

@@ -17,11 +17,11 @@ public class Product {
 
 //	Declaring attributes
 	private int id;
-	private String productname;
+	private String productname; //Todo
 	private String artistname;
 	private double price;
 	private LocalDateTime uploadTime;
-	private String productDescription;
+	private String Description;   //Todo
 	private String imageurl;
 	private Dimension size;
 	private Types category;
@@ -54,7 +54,7 @@ public class Product {
 		this.artistname = artistname;
 		this.price = price;
 		this.uploadTime = uploadTime;
-		this.productDescription = productDescription;
+		this.Description = productDescription;
 		this.imageurl = imageurl;
 		this.size = size;
 		this.category = category;
@@ -185,7 +185,7 @@ public class Product {
 	 * @return The description of the product.
 	 */
 	public String getProductDescription() {
-		return productDescription;
+		return Description;
 	}
 
 	/**
@@ -195,7 +195,7 @@ public class Product {
 	 */
 
 	public void setProductDescription(String productDescription) {
-		this.productDescription = productDescription;
+		this.Description = productDescription;
 	}
 
 	/**

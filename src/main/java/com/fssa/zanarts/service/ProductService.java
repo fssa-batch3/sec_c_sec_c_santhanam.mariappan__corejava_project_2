@@ -12,7 +12,7 @@ import com.fssa.zanarts.validator.ProductValidator;
  */
 
 public class ProductService {
- 
+
 	/**
 	 * Adds a new product to the database.
 	 *
@@ -23,7 +23,7 @@ public class ProductService {
 	 * @throws CustomExpection If there is a custom validation error.
 	 */
 
-	public static boolean addproduct(Product product) throws SQLException, ProductExpection {
+	public static boolean addProduct(Product product) throws SQLException, ProductExpection {
 		if (ProductValidator.validate(product)) {
 			ProductDao.addProduct(product);
 		}
@@ -36,7 +36,7 @@ public class ProductService {
 	 * @param product The product to be updated.
 	 * @return {@code true} if the product was successfully updated, {@code false}
 	 *         otherwise.
-	 * @throws SQLException    If a database error occurs.
+	 * @throws SQLException.   If a database error occurs.
 	 * @throws CustomExpection If there is a custom validation error.
 	 */
 	public static boolean updateProduct(Product product) throws SQLException, ProductExpection {

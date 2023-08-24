@@ -13,22 +13,20 @@ import com.fssa.zanarts.model.Product;
 /**
  * Unit tests for the ProductService class.
  */
-class TestProductService { 
+class TestProductService {
 
-	
-	 static Product validProduct() {
+	static Product validProduct() {
 		Dimension dm = new Dimension(100, 100);
 		Product product = new Product();
-		product.setProductname("Bharathi");
-		product.setArtistname("Chandru");
-		product.setId(13);
-		product.setPrice(300.0);
+		product.setProductname("SanthanamM");
+		product.setArtistname("Bharuchan");
+		product.setId(113);
+		product.setPrice(400.0);
 		product.setCategory(Types.MANDANA);
 		product.setSize(dm);
 		product.setProductDescription("Santhanam is my frist art");
 		product.setUrl("https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg");
 		product.setUploadTime(null);
-
 		return product;
 	}
 
@@ -42,7 +40,7 @@ class TestProductService {
 	void testValidAddProduct() throws ProductExpection, SQLException {
 
 		TestProductService testProduct = new TestProductService();
-		Assertions.assertTrue(ProductService.addproduct(testProduct.validProduct()));
+		Assertions.assertTrue(ProductService.addProduct(testProduct.validProduct()));
 
 	}
 
@@ -77,7 +75,5 @@ class TestProductService {
 		ProductService productSer = new ProductService();
 		Assertions.assertTrue(productSer.getAllProductDetails());
 	}
-
- 
 
 }
