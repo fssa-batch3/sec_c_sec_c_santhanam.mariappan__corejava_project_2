@@ -1,4 +1,11 @@
- 
+#Zan Arts
+#Milestone 1
+
+  *Add product
+  *View product
+  *Update product
+  *Delete product
+  
 ## Table Definition: Product
 
 | Column          | Type          | Attributes      | Description                           |
