@@ -17,11 +17,11 @@ public class Product {
 
 //	Declaring attributes
 	private int id;
-	private String productname; //Todo
+	private String name; // Todo
 	private String artistname;
 	private double price;
 	private LocalDateTime uploadTime;
-	private String Description;   //Todo
+	private String Description; // Todo
 	private String imageurl;
 	private Dimension size;
 	private Types category;
@@ -36,7 +36,7 @@ public class Product {
 	 * Constructs a new Product instance with specified attributes.
 	 *
 	 * @param id                 The unique identifier of the product.
-	 * @param productName        The name of the product.
+	 * @param name        The name of the product.
 	 * @param artistName         The name of the artist who created the product.
 	 * @param price              The price of the product.
 	 * @param uploadTime         The date and time when the product was uploaded.
@@ -46,11 +46,11 @@ public class Product {
 	 * @param category           The category of the product.
 	 */
 
-	public Product(int id, String productname, String artistname, double price, LocalDateTime uploadTime,
+	public Product(int id, String name, String artistname, double price, LocalDateTime uploadTime,
 			String productDescription, String imageurl, Dimension size, Types category) {
 		super();
 		this.id = id;
-		this.productname = productname;
+		this.name = name;
 		this.artistname = artistname;
 		this.price = price;
 		this.uploadTime = uploadTime;
@@ -130,17 +130,17 @@ public class Product {
 	 *
 	 * @return The name of the product.
 	 */
-	public String getProductname() {
-		return productname;
+	public String getname() {
+		return name;
 	}
 
 	/**
 	 * Sets the name of the product.
 	 *
-	 * @param productname The name to set for the product.
+	 * @param name The name to set for the product.
 	 */
-	public void setProductname(String productname) {
-		this.productname = productname;
+	public void setname(String name) {
+		this.name = name;
 	}
 
 	/**
@@ -251,6 +251,13 @@ public class Product {
 	 */
 	public void setUploadTime(LocalDateTime uploadTime) {
 		this.uploadTime = uploadTime;
+	}
+
+	@Override
+	public String toString() {
+		return "Product [id=" + id + ", name=" + name + ", artistname=" + artistname + ", price=" + price
+				+ ", uploadTime=" + uploadTime + ", Description=" + Description + ", imageurl=" + imageurl + ", size="
+				+ size + ", category=" + category + "]";
 	}
 
 }

@@ -9,7 +9,7 @@ public class CustomErrors {
 	public static final String INVALID_OBJECT_NULL = "Object can't be null or empty";
 
 //	Representing the length product name error
-	public static final String INVALID_LENGTH_PRODUCT_NAME = "productName length(Character minimum length 5 and maximum length is 20)";
+	public static final String INVALID_LENGTH_PRODUCT_NAME = "productName length(Character minimum length 5 and maximum length is 30)";
 
 //	Representing the   product name null error	 
 	public static final String INVALID_PRODUCTNAME_NULL = "ProductName can't be null or empty";

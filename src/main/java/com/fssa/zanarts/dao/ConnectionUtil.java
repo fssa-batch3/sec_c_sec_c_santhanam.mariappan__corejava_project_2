@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 import com.fssa.zanarts.customexception.ProductExpection;
- 
+
 //import io.github.cdimascio.dotenv.Dotenv; 
 
 /**
@@ -18,26 +18,30 @@ public class ConnectionUtil {
 	 *
 	 * @return A Connection object representing the database connection.
 	 * @throws ProductExpection If unable to connect to the database.
+	 * @throws ClassNotFoundException 
 	 */
-	public static Connection getConnection() throws ProductExpection {
- 
+	public static Connection getConnection() throws ProductExpection, ClassNotFoundException {
+
 		String url;
 		String userName;
 		String passWord;
-		  
-			url = System.getenv("DATABASE_HOST");
-			userName = System.getenv("DATABASE_USERNAME");
-			passWord = System.getenv("DATABASE_PASSWORD");
-		
-		 try {
-	            return DriverManager.getConnection(url, userName, passWord);
-	        } catch (SQLException e) {
-	            e.printStackTrace();
-	            throw new ProductExpection("Unable to connect to the database");
-	        }
-	}
+
+		url = System.getenv("DATABASE_HOST1");
+		userName = System.getenv("DATABASE_USERNAME1");
+		passWord = System.getenv("DATABASE_PASSWORD1");
+
+ 
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			return DriverManager.getConnection(url, userName, passWord);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new ProductExpection("Unable to connect to the database");
+		}
+	}      
 
 	private ConnectionUtil() {
 	}
 
+	
 }

@@ -33,7 +33,7 @@ class TestProductValidator {
 			product.setProductDescription("Santhanam is my frist art");
 			product.setUrl("https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg");
 			product.setUploadTime(null);
-			product.setProductname("Hello");
+			product.setname("Hello");
 
 			ProductValidator productvalidator = new ProductValidator();
 			Assertions.assertTrue(productvalidator.validate(product));

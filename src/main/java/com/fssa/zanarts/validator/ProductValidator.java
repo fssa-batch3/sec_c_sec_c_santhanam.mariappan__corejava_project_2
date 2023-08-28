@@ -27,8 +27,8 @@ public class ProductValidator {
 		if (product == null) {
 			throw new ProductExpection(CustomErrors.INVALID_OBJECT_NULL);
 		}
- 
-		validateName(product.getProductname());
+
+		validateName(product.getname());
 		validateProductId(product.getId());
 		validateArtistName(product.getArtistname());
 		validateDescription(product.getProductDescription());
@@ -44,20 +44,20 @@ public class ProductValidator {
 	/**
 	 * Validates a product name.
 	 *
-	 * @param productname The name of the product.
+	 * @param name The name of the product.
 	 * @return {@code true} if the name is valid, otherwise throws a
 	 *         CustomException.
 	 * @throws CustomExpection If the name is not valid.
 	 */
-	public static boolean validateName(String productName) throws ProductExpection {
+	public static boolean validateName(String name) throws ProductExpection {
 
-		if (productName == null || "".equals(productName.trim())) {
+		if (name == null || "".equals(name.trim())) {
 			throw new ProductExpection(CustomErrors.INVALID_PRODUCTNAME_NULL);
 		}
 
-		String nameregex = "^[A-Za-z]{5,20}$";
+		String nameregex = "^[A-Za-z]{5,30}$";
 		Pattern pattern = Pattern.compile(nameregex);
-		Matcher matcher = pattern.matcher(productName);
+		Matcher matcher = pattern.matcher(name);
 		Boolean isMatch = matcher.matches();
 
 		if (!isMatch)
@@ -93,7 +93,7 @@ public class ProductValidator {
 	 */
 	public static boolean validateArtistName(String artistName) throws ProductExpection {
 
-		if (artistName == null || "".equals(artistName.trim())) { // "".equals(productname.trim())
+		if (artistName == null || "".equals(artistName.trim())) { // "".equals(name.trim())
 			throw new ProductExpection(CustomErrors.INVALID_ARTISTNAME_NULL);
 		}
 

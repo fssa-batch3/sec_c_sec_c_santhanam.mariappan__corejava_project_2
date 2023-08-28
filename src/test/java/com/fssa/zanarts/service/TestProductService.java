@@ -1,12 +1,15 @@
 package com.fssa.zanarts.service;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import com.fssa.zanarts.customexception.DAOException;
 import com.fssa.zanarts.customexception.ProductExpection;
 import com.fssa.zanarts.enumclass.Types;
+import com.fssa.zanarts.logger.Logger;
 import com.fssa.zanarts.model.Dimension;
 import com.fssa.zanarts.model.Product;
 
@@ -18,31 +21,32 @@ class TestProductService {
 	static Product validProduct() {
 		Dimension dm = new Dimension(100, 100);
 		Product product = new Product();
-		product.setProductname("SanthanamM");
-		product.setArtistname("Bharuchan");
-		product.setId(113);
+		product.setname("Bharathi");
+		product.setArtistname("Santhanam");
+		product.setId(1);
 		product.setPrice(400.0);
-		product.setCategory(Types.MANDANA);
+		product.setCategory(Types.WATERCOLOUR);
 		product.setSize(dm);
 		product.setProductDescription("Santhanam is my frist art");
-		product.setUrl("https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg");
+		product.setUrl("https://iili.io/Hy1IArb.jpg");
 		product.setUploadTime(null);
 		return product;
-	}
+	}  
 
 	/**
 	 * Test adding a valid product.
 	 *
 	 * @throws CustomExpection If a custom exception occurs.
 	 * @throws SQLException    If an SQL exception occurs.
+	 * @throws ClassNotFoundException 
 	 */
 	@Test
-	void testValidAddProduct() throws ProductExpection, SQLException {
+	void testValidAddProduct() throws ProductExpection, SQLException, ClassNotFoundException {
 
 		TestProductService testProduct = new TestProductService();
 		Assertions.assertTrue(ProductService.addProduct(testProduct.validProduct()));
 
-	}
+	} 
 
 	/**
 	 * Test updating a valid product.
@@ -63,17 +67,22 @@ class TestProductService {
 	 * @throws CustomExpection        If a custom exception occurs.
 	 * @throws SQLException           If an SQL exception occurs.
 	 * @throws IllegalAccessException If an IllegalAccessException occurs.
-	 */
-	@Test
+	 */   
+	@Test  
 	void testValidDeleteProduct() throws ProductExpection, SQLException, IllegalAccessException {
 		Assertions.assertTrue(ProductService.deleteProduct(70));
 	}
 
 //	view
-	@Test
-	void testValidGetAllProductDetails() throws ProductExpection, SQLException {
-		ProductService productSer = new ProductService();
-		Assertions.assertTrue(productSer.getAllProductDetails());
-	}
+	@Test 
+	void testValidGetAllProductDetails() throws DAOException, ProductExpection, ClassNotFoundException {
+		ProductService ps = new ProductService();
+		List<Product> productList = ps.getAllProductDetails();
+		for(Product ele : productList) {
+			Logger.info(ele);
+		}
+	} 
+	
+	
 
 }

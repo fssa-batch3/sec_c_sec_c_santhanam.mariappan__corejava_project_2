@@ -2,7 +2,7 @@ package com.fssa.zanarts.logger;
 
 public class Logger {
 	// Private constructor to hide the implicit public one
-	private Logger() {
+	public Logger() {
 		// Private constructor to prevent instantiation
 	}
 

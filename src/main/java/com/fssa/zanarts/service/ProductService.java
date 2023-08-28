@@ -1,9 +1,12 @@
 package com.fssa.zanarts.service;
 
 import java.sql.SQLException;
+import java.util.List;
 
+import com.fssa.zanarts.customexception.DAOException;
 import com.fssa.zanarts.customexception.ProductExpection;
 import com.fssa.zanarts.dao.ProductDao;
+import com.fssa.zanarts.logger.Logger;
 import com.fssa.zanarts.model.Product;
 import com.fssa.zanarts.validator.ProductValidator;
 
@@ -12,6 +15,7 @@ import com.fssa.zanarts.validator.ProductValidator;
  */
 
 public class ProductService {
+	static Logger log = new Logger();
 
 	/**
 	 * Adds a new product to the database.
@@ -19,14 +23,17 @@ public class ProductService {
 	 * @param product The product to be added.
 	 * @return {@code true} if the product was successfully added, {@code false}
 	 *         otherwise.
-	 * @throws SQLException    If a database error occurs.
-	 * @throws CustomExpection If there is a custom validation error.
+	 * @throws SQLException           If a database error occurs.
+	 * @throws ClassNotFoundException
+	 * @throws CustomExpection        If there is a custom validation error.
 	 */
 
-	public static boolean addProduct(Product product) throws SQLException, ProductExpection {
+	public static boolean addProduct(Product product) throws SQLException, ProductExpection, ClassNotFoundException {
+		System.out.println(product.toString());
 		if (ProductValidator.validate(product)) {
 			ProductDao.addProduct(product);
 		}
+		log.info("Added to DB successfully!");
 		return true;
 	}
 
@@ -36,13 +43,15 @@ public class ProductService {
 	 * @param product The product to be updated.
 	 * @return {@code true} if the product was successfully updated, {@code false}
 	 *         otherwise.
+	 * @throws SQLException
 	 * @throws SQLException.   If a database error occurs.
 	 * @throws CustomExpection If there is a custom validation error.
 	 */
-	public static boolean updateProduct(Product product) throws SQLException, ProductExpection {
+	public static boolean updateProduct(Product product) throws ProductExpection, SQLException {
 		if (ProductValidator.validate(product)) {
 			ProductDao.updateProduct(product);
 		}
+		log.info("Sucessfully product update");
 		return true;
 	}
 
@@ -51,12 +60,22 @@ public class ProductService {
 	 *
 	 * @return {@code true} if product details were successfully retrieved,
 	 *         {@code false} otherwise.
-	 * @throws SQLException    If a database error occurs.
-	 * @throws CustomExpection If there is a custom validation error.
+	 * @throws ProductExpection
+	 * @throws SQLException           If a database error occurs.
+	 * @throws ClassNotFoundException
+	 * @throws DAOException
+	 * @throws CustomExpection        If there is a custom validation error.
 	 */
-	public static boolean getAllProductDetails() throws SQLException, ProductExpection {
-		ProductDao.getAllProductDetails();
-		return true;
+//	public static boolean getAllProductDetails() throws SQLException, ProductExpection {
+//		ProductDao.
+//		return true;
+//	}
+
+	public List<Product> getAllProductDetails() throws ProductExpection, ClassNotFoundException, DAOException {
+		ProductDao pd = new ProductDao();
+		log.info("Successfully All product showed");
+		return pd.getAllProductDetails();
+
 	}
 
 	/**
@@ -74,6 +93,8 @@ public class ProductService {
 		if (ProductValidator.validateProductId(productId)) {
 			ProductDao.deleteProduct(productId);
 		}
+
+		log.info("Successfully product Deleted");
 		return true;
 	}
 

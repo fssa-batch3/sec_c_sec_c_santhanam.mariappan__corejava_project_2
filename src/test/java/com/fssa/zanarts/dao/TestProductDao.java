@@ -1,6 +1,9 @@
 package com.fssa.zanarts.dao;
 
+import static org.junit.jupiter.api.Assertions.fail;
+
 import java.sql.SQLException;
+import java.util.List;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -9,6 +12,7 @@ import com.fssa.zanarts.customexception.CustomErrors;
 import com.fssa.zanarts.customexception.DAOException;
 import com.fssa.zanarts.customexception.ProductExpection;
 import com.fssa.zanarts.enumclass.Types;
+import com.fssa.zanarts.logger.Logger;
 import com.fssa.zanarts.model.Dimension;
 import com.fssa.zanarts.model.Product;
 
@@ -19,11 +23,11 @@ import com.fssa.zanarts.model.Product;
 class TestProductDao {
 
 	// Create a valid Product for testing purposes
-
+  
 	public static Product validProduct() {
 		Dimension dm = new Dimension(100, 100);
 		Product product = new Product();
-		product.setProductname("Santhanam");
+		product.setname("Santhanam");
 		product.setArtistname("Santhanam");
 		product.setId(1);
 		product.setPrice(300.0);
@@ -35,14 +39,14 @@ class TestProductDao {
 
 		return product;
 
-	}
+	} 
 
 	// Create an invalid Product for negative testing
 
 	Product invalidProduct() {
 		Dimension dm = new Dimension(100, 100);
 		Product product = new Product();
-		product.setProductname("");
+		product.setname("");
 		product.setArtistname("Santhanam");
 		product.setId(-1);
 		product.setPrice(300.0);
@@ -54,11 +58,11 @@ class TestProductDao {
 
 		return product;
 
-	}
+	} 
 
 	// Test the 'addProduct' method with a valid Product
 	@Test
-	void testValidAddProduct() throws SQLException, ProductExpection {
+	void testValidAddProduct() throws SQLException, ProductExpection, ClassNotFoundException {
 		Assertions.assertTrue(ProductDao.addProduct(validProduct()));
 	}
 
@@ -76,9 +80,14 @@ class TestProductDao {
 
 	// Test the 'getAllProductDetails' method to get all product details
 	@Test
-	void testValidGetProductDetails() throws SQLException, ProductExpection {
+	void testValidGetProductDetails() throws SQLException, ProductExpection, DAOException, ClassNotFoundException {
 		ProductDao pd = new ProductDao();
-		Assertions.assertTrue(ProductDao.getAllProductDetails());
+
+		List<Product> productList = pd.getAllProductDetails();
+		for (Product ele : productList) {
+			Logger.info(ele);
+		}
+
 	}
 
 	/**
@@ -86,10 +95,11 @@ class TestProductDao {
 	 *
 	 * @throws DAOException    If a DAO exception occurs.
 	 * @throws SQLException    If an SQL exception occurs.
+	 * @throws ClassNotFoundException 
 	 * @throws CustomExpection If a custom exception occurs.
 	 */
 	@Test
-	void testInvalidAddProduct() throws SQLException, ProductExpection {
+	void testInvalidAddProduct() throws SQLException, ProductExpection, ClassNotFoundException {
 
 		try {
 			ProductDao.addProduct(invalidProduct());
@@ -110,7 +120,7 @@ class TestProductDao {
 	 */
 	void testInvalidUpdateProductId() throws DAOException, SQLException, ProductExpection {
 		// Expecting the method to throw an SQLException with a specific error message
-		try { 
+		try {
 			Product product = new Product();
 			product.setId(-1);
 			ProductDao.updateProduct(product);
