@@ -20,23 +20,23 @@ public class ConnectionUtil {
 	 * @throws ProductExpection If unable to connect to the database.
 	 * @throws ClassNotFoundException 
 	 */
-	public static Connection getConnection() throws ProductExpection, ClassNotFoundException {
+	public static Connection getConnection()   {
 
 		String url;
 		String userName;
 		String passWord;
 
-		url = System.getenv("DATABASE_HOST1");
-		userName = System.getenv("DATABASE_USERNAME1");
-		passWord = System.getenv("DATABASE_PASSWORD1");
+		url = System.getenv("DATABASE_HOST");
+		userName = System.getenv("DATABASE_USERNAME");
+		passWord = System.getenv("DATABASE_PASSWORD");
 
  
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			return DriverManager.getConnection(url, userName, passWord);
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
-			throw new ProductExpection("Unable to connect to the database");
+			throw new 	RuntimeException("Unable to connect to the database");
 		}
 	}      
 

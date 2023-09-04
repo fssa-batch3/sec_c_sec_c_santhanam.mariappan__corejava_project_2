@@ -28,11 +28,11 @@ public class ProductDao {
 	 * @throws CustomExpection
 	 */
 
-	public static boolean addProduct(Product product) throws SQLException, ProductExpection, ClassNotFoundException {
+	public static boolean addProduct(Product product) throws SQLException, ProductExpection {
 
 		try (Connection con = ConnectionUtil.getConnection()) {
 
-			final String query = "INSERT INTO products (name, artistname, price, productDescription, imageurl, category, width, height) VALUES ( ?, ?, ?, ?, ?, ?, ?, ? )";
+			final String query = "INSERT INTO products (productname, artistname, price, productDescription, imageurl, category, width, height) VALUES ( ?, ?, ?, ?, ?, ?, ?, ? )";
 			try (PreparedStatement pst = con.prepareStatement(query)) {
 
 				pst.setString(1, product.getname());
@@ -60,14 +60,14 @@ public class ProductDao {
 	// Returns true if the product was updated successfully, false otherwise.
 	// Throws SQLException if there's an error with the database operation.
 
-	public static boolean updateProduct(Product product) throws SQLException, ProductExpection {
+	public static boolean updateProduct(Product product , int id) throws SQLException, ProductExpection {
 
 		if (product.getId() <= 0) {
 			throw new ProductExpection(CustomErrors.INVALID_PRODUCTID);
 		}
 		try (Connection con = ConnectionUtil.getConnection()) {
 
-			final String query = "UPDATE products SET name = ?, price = ?, productDescription = ?, imageurl = ?, category = ?, width = ?, height = ? WHERE id = ?";
+			final String query = "UPDATE products SET productname = ?, price = ?, productDescription = ?, imageurl = ?, category = ?, width = ?, height = ? WHERE id = ?";
 			try (PreparedStatement pst = con.prepareStatement(query)) {
 
 				pst.setString(1, product.getname());
@@ -77,7 +77,7 @@ public class ProductDao {
 				pst.setString(5, product.getCategory().getTypes());
 				pst.setInt(6, product.getSize().getWidth());
 				pst.setInt(7, product.getSize().getHeight());
-				pst.setInt(8, product.getId());
+				pst.setInt(8, id);
 
 				pst.executeUpdate();
 
@@ -85,10 +85,7 @@ public class ProductDao {
 
 		} catch (SQLException ex) {
 			throw new SQLException(CustomErrors.UPDATE_ERROR);
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		} 
 
 		return true;
 
@@ -112,18 +109,48 @@ public class ProductDao {
 
 		} catch (SQLException ex) {
 			throw new SQLException(CustomErrors.DELETE_ERROR);
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		} 
 
 		return true;
 
 	}
 
+	// reading product
+	public static Product readProduct(int productId) throws  DAOException  {
+		Product product = new Product();
+		// Create SELECT statement
+		String query = "SELECT * FROM products WHERE id = ?";
+		try (Connection connection = ConnectionUtil.getConnection()) {
+			try (PreparedStatement pst = connection.prepareStatement(query)) {
+				pst.setInt(1, productId);
+				try (ResultSet rs = pst.executeQuery()) {
+//					System.out.println(rs.getMetaData().getColumnName(1));
+					if (rs.next()) {
+						product.setArtistname(rs.getString("artistname"));
+						product.setId(rs.getInt("id"));
+						product.setImageurl(rs.getString("imageurl"));
+						product.setPrice(rs.getDouble("price"));
+						product.setCategory(Types.valueToEnumMapping(rs.getString("category").toLowerCase()));
+						product.setname(rs.getString("productname"));
+						Dimension dim = new Dimension();
+						dim.setHeight(rs.getInt("height"));
+						dim.setWidth(rs.getInt("width"));
+						product.setSize(dim);
+						product.setUploadTime(rs.getTimestamp("updateTimestamp").toLocalDateTime());
+						product.setId(rs.getInt("id"));
+						product.setProductDescription(rs.getString("productDescription"));
+					}
+				}
+			}
+		} catch (SQLException e) {
+			throw new DAOException("Error while reading product: " + e.getMessage());
+		}
+		return product;
+	}
+
 	// Method to retrieve and print all product details from the database.
 	// Throws SQLException if there's an error with the database operation.
-	public List<Product> getAllProductDetails() throws ProductExpection, ClassNotFoundException, DAOException {
+	public List<Product> getAllProductDetails() throws  DAOException {
 
 		List<Product> productList = new ArrayList<>();
 		try (Connection con = ConnectionUtil.getConnection()) {
@@ -142,7 +169,7 @@ public class ProductDao {
 						product.setPrice(rs.getDouble("price"));
 
 						product.setCategory(Types.valueToEnumMapping(rs.getString("category").toLowerCase()));
-						product.setname(rs.getString("name"));
+						product.setname(rs.getString("productname"));
 						Dimension dim = new Dimension();
 						dim.setHeight(rs.getInt("height"));
 						dim.setWidth(rs.getInt("width"));

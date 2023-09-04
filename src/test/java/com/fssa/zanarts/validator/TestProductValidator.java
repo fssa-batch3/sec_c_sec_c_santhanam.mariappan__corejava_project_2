@@ -193,7 +193,7 @@ class TestProductValidator {
 
 	  void testValidDescription() {
 		try {
-			Assertions.assertTrue(ProductValidator.validateDescription("santhanamkjbvdfvknfbflks"));
+			Assertions.assertTrue(ProductValidator.validateDescription("santhanamk jbvdfvknfbflks"));
 		} catch (ProductExpection e) {
 			e.getMessage();
 		}

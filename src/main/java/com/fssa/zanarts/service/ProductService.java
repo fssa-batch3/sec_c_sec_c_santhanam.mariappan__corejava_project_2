@@ -28,7 +28,7 @@ public class ProductService {
 	 * @throws CustomExpection        If there is a custom validation error.
 	 */
 
-	public static boolean addProduct(Product product) throws SQLException, ProductExpection, ClassNotFoundException {
+	public static boolean addProduct(Product product) throws SQLException, ProductExpection {
 		System.out.println(product.toString());
 		if (ProductValidator.validate(product)) {
 			ProductDao.addProduct(product);
@@ -47,9 +47,9 @@ public class ProductService {
 	 * @throws SQLException.   If a database error occurs.
 	 * @throws CustomExpection If there is a custom validation error.
 	 */
-	public static boolean updateProduct(Product product) throws ProductExpection, SQLException {
+	public static boolean updateProduct(Product product, int id) throws ProductExpection, SQLException {
 		if (ProductValidator.validate(product)) {
-			ProductDao.updateProduct(product);
+			ProductDao.updateProduct(product, id);
 		}
 		log.info("Sucessfully product update");
 		return true;
@@ -70,8 +70,22 @@ public class ProductService {
 //		ProductDao.
 //		return true;
 //	}
+	
+	
+	// reading product
+		public static Product readProduct(int id) throws SQLException, DAOException, ProductExpection {
 
-	public List<Product> getAllProductDetails() throws ProductExpection, ClassNotFoundException, DAOException {
+			if (ProductValidator.validateProductId(id)) {
+				return ProductDao.readProduct(id);
+			}
+			log.info("Sucessfully product shown");
+			return null;
+		}
+		
+		
+		
+
+	public List<Product> getAllProductDetails() throws ProductExpection, DAOException {
 		ProductDao pd = new ProductDao();
 		log.info("Successfully All product showed");
 		return pd.getAllProductDetails();

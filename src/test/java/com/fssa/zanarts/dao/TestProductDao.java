@@ -69,7 +69,7 @@ class TestProductDao {
 	// Test the 'updateProduct' method with a valid Product
 	@Test
 	void testValidUpdateProduct() throws SQLException, ProductExpection {
-		Assertions.assertTrue(ProductDao.updateProduct(validProduct()));
+		Assertions.assertTrue(ProductDao.updateProduct(validProduct(), 3));
 	}
 
 	// Test the 'deleteProduct' method with a valid Product ID
@@ -123,7 +123,7 @@ class TestProductDao {
 		try {
 			Product product = new Product();
 			product.setId(-1);
-			ProductDao.updateProduct(product);
+			ProductDao.updateProduct(product,3);
 		} catch (ProductExpection ex) {
 			Assertions.assertEquals(CustomErrors.INVALID_PRODUCTID, ex.getMessage());
 		}
