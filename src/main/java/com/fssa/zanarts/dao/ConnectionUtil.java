@@ -11,16 +11,17 @@ import com.fssa.zanarts.customexception.ProductExpection;
 /**
  * Utility class for establishing a database connection.
  */
+
 public class ConnectionUtil {
 
 	/**
 	 * Establishes a database connection.
 	 *
 	 * @return A Connection object representing the database connection.
-	 * @throws ProductExpection If unable to connect to the database.
-	 * @throws ClassNotFoundException 
+	 * @throws ProductExpection       If unable to connect to the database.
+	 * @throws ClassNotFoundException
 	 */
-	public static Connection getConnection()   {
+	public static Connection getConnection() {
 
 		String url;
 		String userName;
@@ -30,18 +31,16 @@ public class ConnectionUtil {
 		userName = System.getenv("DATABASE_USERNAME");
 		passWord = System.getenv("DATABASE_PASSWORD");
 
- 
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			return DriverManager.getConnection(url, userName, passWord);
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new 	RuntimeException("Unable to connect to the database");
+			throw new RuntimeException("Unable to connect to the database");
 		}
-	}      
+	}
 
 	private ConnectionUtil() {
 	}
 
-	
 }

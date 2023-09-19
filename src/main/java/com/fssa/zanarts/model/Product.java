@@ -24,13 +24,23 @@ public class Product {
 	private String Description; // Todo
 	private String imageurl;
 	private Dimension size;
+	private String userid;
 	private Types category;
+
 
 	/**
 	 * Enumerates the different types of art categories.
 	 */
 
 //	private String category;
+
+	public String getUserId() {
+		return userid;
+	}
+
+	public void setUserId(String userid) {
+		this.userid = userid;
+	}
 
 	/**
 	 * Constructs a new Product instance with specified attributes.
@@ -47,7 +57,7 @@ public class Product {
 	 */
 
 	public Product(int id, String name, String artistname, double price, LocalDateTime uploadTime,
-			String productDescription, String imageurl, Dimension size, Types category) {
+			String productDescription, String imageurl, Dimension size,String userid, Types category) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -57,6 +67,7 @@ public class Product {
 		this.Description = productDescription;
 		this.imageurl = imageurl;
 		this.size = size;
+		this.userid=userid;
 		this.category = category;
 	}
 

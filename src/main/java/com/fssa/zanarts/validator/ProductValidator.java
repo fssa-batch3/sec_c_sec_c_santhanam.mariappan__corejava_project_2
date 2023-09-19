@@ -55,7 +55,7 @@ public class ProductValidator {
 			throw new ProductExpection(CustomErrors.INVALID_PRODUCTNAME_NULL);
 		}
 
-		String nameregex = "^[A-Za-z]{5,30}$";
+		String nameregex = "^[A-Za-z]{3,100}$";
 		Pattern pattern = Pattern.compile(nameregex);
 		Matcher matcher = pattern.matcher(name);
 		Boolean isMatch = matcher.matches();
@@ -90,7 +90,7 @@ public class ProductValidator {
 	 * @return {@code true} if the artist name is valid, otherwise throws a
 	 *         CustomException.
 	 * @throws CustomExpection If the artist name is not valid.
-	 */
+	 */ 
 	public static boolean validateArtistName(String artistName) throws ProductExpection {
 
 		if (artistName == null || "".equals(artistName.trim())) { // "".equals(name.trim())
@@ -123,7 +123,7 @@ public class ProductValidator {
 			throw new ProductExpection(CustomErrors.INVALID_DESCRIPTION_NULL);
 		}
 
-		String regex = "^[A-Za-z ]{5,100}$";
+		String regex = "^[A-Za-z ]{3,1000}$";
 		Pattern pattern = Pattern.compile(regex);
 		Matcher matcher = pattern.matcher(description);
 		Boolean isMatch = matcher.matches();

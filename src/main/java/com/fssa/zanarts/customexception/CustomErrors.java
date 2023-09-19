@@ -1,15 +1,15 @@
 package com.fssa.zanarts.customexception;
 
 public class CustomErrors {
-    private   CustomErrors()
-    {
-    	
-    }
+	private CustomErrors() {
+
+	}
+
 //	Representing the null object error
 	public static final String INVALID_OBJECT_NULL = "Object can't be null or empty";
 
 //	Representing the length product name error
-	public static final String INVALID_LENGTH_PRODUCT_NAME = "productName length(Character minimum length 5 and maximum length is 30)";
+	public static final String INVALID_LENGTH_PRODUCT_NAME = "productName length(Character minimum length 3 and maximum length is 100)";
 
 //	Representing the   product name null error	 
 	public static final String INVALID_PRODUCTNAME_NULL = "ProductName can't be null or empty";
@@ -55,5 +55,40 @@ public class CustomErrors {
 
 //product details error
 	public static final String DETAILS_ERROR = "Get All Product Detail Method Is Failed";
+
+//	user object null
+	public static final String USER_NULL = "User cann't br null";
+
+//	user name null
+	public static final String USER_NAME_NULL = "Username cann't br null";
+//	user name length
+	public static final String INVALID_USER_NAME_LENGTH = "Username length minimum 3 to maximum 50";
+//	PHONE_NUMBER_NULL
+	public static final String PHONE_NUMBER_NULL = "Phone number cann't be null";
+
+//	PHONE_NUMBER_LENGTH
+	public static final String PHONE_NUMBER_LENGTH = "Phone number cann't more 10 numbers";
+
+//	password null
+	public static final String PASSWORD_NULL = "Password cann't be null";
+
+//	password length 
+	public static final String INVALID_PASSWORD_LENGTH = "Password minimum 8 character";
+
+//	invalid email 
+	public static final String INVALID_EMAIL = "Email cann't be null";
+
+//	invalid email length
+	public static final String INVALID_EMAIL_FORMART = "Email format contain @";
+	
+//	adding during connnection in user table
+	public static final String  ADDING_METHOD_FAIL = "Adding method is failed";
+	
+//	invalid user id 
+	public static final String  INVALID_USER_ID = "User id cann't be zero";
+	
+//	Update error
+	public static final String UPDATE_USER_ERROR = "User Updating Method Is Failed";
+ 
 
 }

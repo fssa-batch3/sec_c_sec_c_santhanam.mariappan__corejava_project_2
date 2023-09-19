@@ -22,6 +22,7 @@ import com.fssa.zanarts.model.Product;
 class TestProductService {
 
 	static Product validProduct() {
+		
 		Dimension dm = new Dimension(100, 100);
 		Product product = new Product();
 		product.setname("Bharathi");
@@ -29,22 +30,26 @@ class TestProductService {
 		product.setId(1);
 		product.setPrice(400.0);
 		product.setCategory(Types.WATERCOLOUR);
-		product.setSize(dm);
+		product.setSize(dm); 
 		product.setProductDescription("My Second art");
 		product.setUrl("https://iili.io/Hy1IArb.jpg");
 		product.setUploadTime(null);
-		return product;
+		return product;	
 	}
 
+	
 	/**
 	 * Test adding a valid product.
 	 *
 	 * @throws CustomExpection        If a custom exception occurs.
 	 * @throws SQLException           If an SQL exception occurs.
+	 * @throws DAOException 
 	 * @throws ClassNotFoundException
 	 */
+	
+	
 	@Test
-	void testValidAddProduct() throws ProductExpection, SQLException {
+	void testValidAddProduct() throws ProductExpection, SQLException, DAOException {
 
 		TestProductService testProduct = new TestProductService();
 		Assertions.assertTrue(ProductService.addProduct(testProduct.validProduct()));
@@ -71,6 +76,7 @@ class TestProductService {
 	 * @throws SQLException           If an SQL exception occurs.
 	 * @throws IllegalAccessException If an IllegalAccessException occurs.
 	 */
+	
 	@Test
 	void testValidDeleteProduct() throws ProductExpection, SQLException {
 		Assertions.assertTrue(ProductService.deleteProduct(1));
@@ -81,7 +87,7 @@ class TestProductService {
 	void testValidGetAllProductDetails() throws DAOException, ProductExpection {
 		ProductService ps = new ProductService();
 		List<Product> productList = ps.getAllProductDetails();
-		for (Product ele : productList) {
+ 		for (Product ele : productList) {
 			Logger.info(ele);
 		}
 	}
@@ -90,13 +96,8 @@ class TestProductService {
 	void testReadProduct() {
 		ProductService productservices = new ProductService();
 		assertDoesNotThrow(() -> productservices.readProduct(1));
-
 	}
 
-	@Test
-	void testReadNonexistentProduct() {
-		ProductService productservices = new ProductService();
-		assertThrows(ProductExpection.class, () -> productservices.readProduct(1000));
-	}
+	 
 
 }

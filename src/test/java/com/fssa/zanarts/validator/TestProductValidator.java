@@ -24,7 +24,7 @@ class TestProductValidator {
 		try {
 			Dimension dm = new Dimension(100, 100);
 
-			Product product = new Product();
+			Product product = new Product(); 
 			product.setArtistname("Santhanam");
 			product.setId(1);
 			product.setPrice(200.0);
@@ -242,7 +242,7 @@ class TestProductValidator {
 	  void testValidprice() throws ProductExpection {
 		Assertions.assertTrue(ProductValidator.validatePrice(300));
 	}
-
+ 
 	/*
 	 * Invalid testcase for price
 	 */

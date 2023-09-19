@@ -6,6 +6,7 @@ import java.util.List;
 import com.fssa.zanarts.customexception.DAOException;
 import com.fssa.zanarts.customexception.ProductExpection;
 import com.fssa.zanarts.dao.ProductDao;
+import com.fssa.zanarts.dao.UserDao;
 import com.fssa.zanarts.logger.Logger;
 import com.fssa.zanarts.model.Product;
 import com.fssa.zanarts.validator.ProductValidator;
@@ -24,11 +25,12 @@ public class ProductService {
 	 * @return {@code true} if the product was successfully added, {@code false}
 	 *         otherwise.
 	 * @throws SQLException           If a database error occurs.
+	 * @throws DAOException 
 	 * @throws ClassNotFoundException
 	 * @throws CustomExpection        If there is a custom validation error.
 	 */
 
-	public static boolean addProduct(Product product) throws SQLException, ProductExpection {
+	public static boolean addProduct(Product product) throws SQLException, ProductExpection, DAOException {
 		System.out.println(product.toString());
 		if (ProductValidator.validate(product)) {
 			ProductDao.addProduct(product);
@@ -54,7 +56,7 @@ public class ProductService {
 		log.info("Sucessfully product update");
 		return true;
 	}
-
+ 
 	/**
 	 * Retrieves details of all products from the database.
 	 *
@@ -89,6 +91,12 @@ public class ProductService {
 		ProductDao pd = new ProductDao();
 		log.info("Successfully All product showed");
 		return pd.getAllProductDetails();
+
+	}
+	public List<Product> getArtistProductDetails(String email) throws ProductExpection, DAOException {
+		ProductDao pd = new ProductDao();
+		log.info("Successfully All product showed");
+		return pd.getArtistProducts(UserDao.getUserIdByEmail(email));
 
 	}
 

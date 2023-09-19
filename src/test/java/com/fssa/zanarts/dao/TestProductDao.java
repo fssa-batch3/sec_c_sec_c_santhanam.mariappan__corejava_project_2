@@ -23,7 +23,7 @@ import com.fssa.zanarts.model.Product;
 class TestProductDao {
 
 	// Create a valid Product for testing purposes
-  
+
 	public static Product validProduct() {
 		Dimension dm = new Dimension(100, 100);
 		Product product = new Product();
@@ -35,11 +35,12 @@ class TestProductDao {
 		product.setSize(dm);
 		product.setProductDescription("Santhanam is my frist art");
 		product.setUrl("https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg");
+		product.setUserId("isac@2002");
 		product.setUploadTime(null);
 
 		return product;
 
-	} 
+	}
 
 	// Create an invalid Product for negative testing
 
@@ -58,11 +59,11 @@ class TestProductDao {
 
 		return product;
 
-	} 
+	}
 
 	// Test the 'addProduct' method with a valid Product
 	@Test
-	void testValidAddProduct() throws SQLException, ProductExpection, ClassNotFoundException {
+	void testValidAddProduct() throws SQLException, ProductExpection, ClassNotFoundException, DAOException {
 		Assertions.assertTrue(ProductDao.addProduct(validProduct()));
 	}
 
@@ -90,16 +91,27 @@ class TestProductDao {
 
 	}
 
+	@Test
+	void testValidArtistProductDetails() throws SQLException, ProductExpection, DAOException, ClassNotFoundException {
+		ProductDao pd = new ProductDao();
+
+		List<Product> productList = pd.getArtistProducts(UserDao.getUserIdByEmail(validProduct().getUserId()));
+		for (Product ele : productList) {
+			Logger.info(ele);
+		}
+
+	}
+
 	/**
 	 * Test updating a product with an invalid ID.
 	 *
-	 * @throws DAOException    If a DAO exception occurs.
-	 * @throws SQLException    If an SQL exception occurs.
-	 * @throws ClassNotFoundException 
-	 * @throws CustomExpection If a custom exception occurs.
+	 * @throws DAOException           If a DAO exception occurs.
+	 * @throws SQLException           If an SQL exception occurs.
+	 * @throws ClassNotFoundException
+	 * @throws CustomExpection        If a custom exception occurs.
 	 */
 	@Test
-	void testInvalidAddProduct() throws SQLException, ProductExpection, ClassNotFoundException {
+	void testInvalidAddProduct() throws SQLException, ProductExpection, ClassNotFoundException, DAOException {
 
 		try {
 			ProductDao.addProduct(invalidProduct());
@@ -123,7 +135,7 @@ class TestProductDao {
 		try {
 			Product product = new Product();
 			product.setId(-1);
-			ProductDao.updateProduct(product,3);
+			ProductDao.updateProduct(product, 3);
 		} catch (ProductExpection ex) {
 			Assertions.assertEquals(CustomErrors.INVALID_PRODUCTID, ex.getMessage());
 		}

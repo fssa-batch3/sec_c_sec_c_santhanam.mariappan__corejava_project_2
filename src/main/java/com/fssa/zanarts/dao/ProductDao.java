@@ -24,15 +24,16 @@ public class ProductDao {
 	 * @return true if the product was added successfully.
 	 * @throws SQLException           if there's an error with the database
 	 *                                operation.
+	 * @throws DAOException 
 	 * @throws ClassNotFoundException
 	 * @throws CustomExpection
 	 */
 
-	public static boolean addProduct(Product product) throws SQLException, ProductExpection {
+	public static boolean addProduct(Product product) throws SQLException, ProductExpection, DAOException {
 
 		try (Connection con = ConnectionUtil.getConnection()) {
 
-			final String query = "INSERT INTO products (productname, artistname, price, productDescription, imageurl, category, width, height) VALUES ( ?, ?, ?, ?, ?, ?, ?, ? )";
+			final String query = "INSERT INTO products (productname, artistname, price, productDescription, imageurl, category, width, height,userid) VALUES ( ?, ?, ?, ?, ?, ?, ?, ? ,?)";
 			try (PreparedStatement pst = con.prepareStatement(query)) {
 
 				pst.setString(1, product.getname());
@@ -43,6 +44,8 @@ public class ProductDao {
 				pst.setString(6, product.getCategory().getTypes());
 				pst.setInt(7, product.getSize().getWidth());
 				pst.setInt(8, product.getSize().getHeight());
+				System.out.println(product.getUserId());
+				pst.setInt(9, UserDao.getUserIdByEmail(product.getUserId()));
 
 				pst.executeUpdate();
 
@@ -62,7 +65,7 @@ public class ProductDao {
 
 	public static boolean updateProduct(Product product , int id) throws SQLException, ProductExpection {
 
-		if (product.getId() <= 0) {
+		if (product.getId() <= 0) { 
 			throw new ProductExpection(CustomErrors.INVALID_PRODUCTID);
 		}
 		try (Connection con = ConnectionUtil.getConnection()) {
@@ -112,6 +115,60 @@ public class ProductDao {
 		} 
 
 		return true;
+
+	}
+	
+	public List<Product> getArtistProducts(int userid) throws  DAOException {
+
+		List<Product> productList = new ArrayList<>();
+		try (Connection con = ConnectionUtil.getConnection()) {
+
+		 String query = "SELECT * FROM products WHERE userid = ?";
+			try (PreparedStatement pst = con.prepareStatement(query)) {
+				pst.setInt(1, userid);
+
+				try (ResultSet rs = pst.executeQuery()) {
+
+					while (rs.next()) {
+
+						Product product = new Product();
+						product.setArtistname(rs.getString("artistname"));
+						product.setId(rs.getInt("id"));
+						product.setImageurl(rs.getString("imageurl"));
+						product.setPrice(rs.getDouble("price"));
+
+						product.setCategory(Types.valueToEnumMapping(rs.getString("category").toLowerCase()));
+						product.setname(rs.getString("productname"));
+						Dimension dim = new Dimension();
+						dim.setHeight(rs.getInt("height"));
+						dim.setWidth(rs.getInt("width"));
+						product.setSize(dim);
+						product.setUploadTime(rs.getTimestamp("updateTimestamp").toLocalDateTime());
+//						product.setUserId(rs.getInt("userid"));
+						product.setId(rs.getInt("id"));
+						product.setProductDescription(rs.getString("productDescription"));
+
+						productList.add(product);
+						System.out.println(productList);
+//
+//						System.out.println("ID: " + rs.getInt("id") + ", Product Name: " + rs.getString("name")
+//								+ ", Artist Name: " + rs.getString("artistname") + ", Price: " + rs.getDouble("price")
+//								+ ", Upload Time: " + rs.getString("updateTimestamp") + ", Product Description: "
+//								+ rs.getString("productDescription") + ", imageurl: " + rs.getString("imageurl")
+//								+ ", width: " + rs.getInt("width") + ", Height: " + rs.getInt("height") + ", Category: "
+//								+ rs.getString("height"));
+
+					}
+
+				}
+
+			}
+
+		} catch (SQLException ex) {
+			throw new DAOException(CustomErrors.DETAILS_ERROR);
+		}
+
+		return productList;
 
 	}
 
