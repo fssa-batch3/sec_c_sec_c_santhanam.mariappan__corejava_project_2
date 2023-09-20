@@ -24,7 +24,7 @@ public class ProductDao {
 	 * @return true if the product was added successfully.
 	 * @throws SQLException           if there's an error with the database
 	 *                                operation.
-	 * @throws DAOException 
+	 * @throws DAOException
 	 * @throws ClassNotFoundException
 	 * @throws CustomExpection
 	 */
@@ -44,8 +44,8 @@ public class ProductDao {
 				pst.setString(6, product.getCategory().getTypes());
 				pst.setInt(7, product.getSize().getWidth());
 				pst.setInt(8, product.getSize().getHeight());
-				System.out.println(product.getUserId());
-				pst.setInt(9, UserDao.getUserIdByEmail(product.getUserId()));
+				System.out.println(product.getUserId()+"mfdpo");
+				pst.setInt(9, Integer.parseInt(product.getUserId()));
 
 				pst.executeUpdate();
 
@@ -63,9 +63,9 @@ public class ProductDao {
 	// Returns true if the product was updated successfully, false otherwise.
 	// Throws SQLException if there's an error with the database operation.
 
-	public static boolean updateProduct(Product product , int id) throws SQLException, ProductExpection {
+	public static boolean updateProduct(Product product, int id) throws SQLException, ProductExpection {
 
-		if (product.getId() <= 0) { 
+		if (product.getId() <= 0) {
 			throw new ProductExpection(CustomErrors.INVALID_PRODUCTID);
 		}
 		try (Connection con = ConnectionUtil.getConnection()) {
@@ -88,7 +88,7 @@ public class ProductDao {
 
 		} catch (SQLException ex) {
 			throw new SQLException(CustomErrors.UPDATE_ERROR);
-		} 
+		}
 
 		return true;
 
@@ -112,18 +112,18 @@ public class ProductDao {
 
 		} catch (SQLException ex) {
 			throw new SQLException(CustomErrors.DELETE_ERROR);
-		} 
+		}
 
 		return true;
 
 	}
-	
-	public List<Product> getArtistProducts(int userid) throws  DAOException {
+
+	public List<Product> getArtistProducts(int userid) throws DAOException {
 
 		List<Product> productList = new ArrayList<>();
 		try (Connection con = ConnectionUtil.getConnection()) {
 
-		 String query = "SELECT * FROM products WHERE userid = ?";
+			String query = "SELECT * FROM products WHERE userid = ?";
 			try (PreparedStatement pst = con.prepareStatement(query)) {
 				pst.setInt(1, userid);
 
@@ -173,7 +173,7 @@ public class ProductDao {
 	}
 
 	// reading product
-	public static Product readProduct(int productId) throws  DAOException  {
+	public static Product readProduct(int productId) throws DAOException {
 		Product product = new Product();
 		// Create SELECT statement
 		String query = "SELECT * FROM products WHERE id = ?";
@@ -207,7 +207,7 @@ public class ProductDao {
 
 	// Method to retrieve and print all product details from the database.
 	// Throws SQLException if there's an error with the database operation.
-	public List<Product> getAllProductDetails() throws  DAOException {
+	public List<Product> getAllProductDetails() throws DAOException {
 
 		List<Product> productList = new ArrayList<>();
 		try (Connection con = ConnectionUtil.getConnection()) {
