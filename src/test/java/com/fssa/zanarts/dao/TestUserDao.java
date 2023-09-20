@@ -27,7 +27,7 @@ public class TestUserDao {
 	}
 
 	// Create an invalid user for negative testing
-
+ 
 	User invalidUser() {
 		User user = new User();
 		user.setId(2);
@@ -36,7 +36,7 @@ public class TestUserDao {
 		user.setPassword("Sa123");
 		user.setPhoneNumber("909527688");
 		user.setRole(Role.ARTIST);
- 
+
 		return user;
 
 	}

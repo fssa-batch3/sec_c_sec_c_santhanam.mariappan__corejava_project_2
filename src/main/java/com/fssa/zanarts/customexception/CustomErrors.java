@@ -80,15 +80,36 @@ public class CustomErrors {
 
 //	invalid email length
 	public static final String INVALID_EMAIL_FORMART = "Email format contain @";
-	
+
 //	adding during connnection in user table
-	public static final String  ADDING_METHOD_FAIL = "Adding method is failed";
-	
+	public static final String ADDING_METHOD_FAIL = "Adding method is failed";
+
 //	invalid user id 
-	public static final String  INVALID_USER_ID = "User id cann't be zero";
-	
+	public static final String INVALID_USER_ID = "User id cann't be zero";
+
 //	Update error
 	public static final String UPDATE_USER_ERROR = "User Updating Method Is Failed";
- 
+
+//	invalid quantity
+	public static final String INVALID_QUANTITY = "Order quantity 1 to 5";
+
+//	Total amount  
+	public static final String INVALID_TOTAL_AMOUNT = "Total amount cann't be zero";
+
+//	Notes
+	public static final String INVALID_NOTES = "Can't be empty";
+
+//	Notes
+	public static final String INVALID_LIST = " List Can't be empty";
+
+//	status
+	public static final String INVALID_STATUS = " Status Can't be empty";
+	
+//	method fail 
+	public static final String ORDER_CREATION_FAILED = " Order creation method failed";
+	
+
+//	method fail 
+	public static final String ORDER_ID = " Order id can't be zero";
 
 }

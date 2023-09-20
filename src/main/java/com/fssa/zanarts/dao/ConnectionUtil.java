@@ -1,46 +1,40 @@
 package com.fssa.zanarts.dao;
 
+
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
 
-import com.fssa.zanarts.customexception.ProductExpection;
 
-//import io.github.cdimascio.dotenv.Dotenv; 
-
-/**
- * Utility class for establishing a database connection.
- */
 
 public class ConnectionUtil {
 
-	/**
-	 * Establishes a database connection.
-	 *
-	 * @return A Connection object representing the database connection.
-	 * @throws ProductExpection       If unable to connect to the database.
-	 * @throws ClassNotFoundException
-	 */
 	public static Connection getConnection() {
+		Connection con = null;
 
-		String url;
-		String userName;
-		String passWord;
+		String url, userName, passWord;
 
-		url = System.getenv("DATABASE_HOST");
-		userName = System.getenv("DATABASE_USERNAME");
-		passWord = System.getenv("DATABASE_PASSWORD");
+		url = System.getenv("DATABASE_HOST1");
+		userName = System.getenv("DATABASE_USERNAME1");
+		passWord = System.getenv("DATABASE_PASSWORD1");
 
+//		url = System.getenv("CLOUD_DATABASE_HOST");
+//		userName = System.getenv("CLOUD_DATABASE_USERNAME");
+//		passWord = System.getenv("CLOUD_DATABASE_PASSWORD");
+		 
+		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			return DriverManager.getConnection(url, userName, passWord);
+			con = DriverManager.getConnection(url, userName, passWord);
+			System.out.println("Connection");
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new RuntimeException("Unable to connect to the database");
 		}
+		return con;
 	}
-
-	private ConnectionUtil() {
+	
+	public static void main(String[] args) {
+		System.out.println(ConnectionUtil.getConnection());
 	}
 
 }

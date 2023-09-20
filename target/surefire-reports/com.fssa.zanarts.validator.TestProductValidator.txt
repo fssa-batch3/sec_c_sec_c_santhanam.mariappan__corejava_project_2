@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: com.fssa.zanarts.validator.TestProductValidator
--------------------------------------------------------------------------------
-Tests run: 21, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.141 s - in com.fssa.zanarts.validator.TestProductValidator

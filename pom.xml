@@ -24,11 +24,17 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>8.0.33</version>
+			<version>8.0.26</version>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/de.mkammerer/argon2-jvm -->
-
+		<!-- JUnit Jupiter Engine for running tests -->
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<version>5.7.0</version>
+			<scope>test</scope>
+		</dependency>
+		
 
 		<!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter -->
 		<dependency>

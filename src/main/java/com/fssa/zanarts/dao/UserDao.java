@@ -89,10 +89,9 @@ public class UserDao {
 						user.setEmail(rs.getString("userName"));
 						user.setPhoneNumber(rs.getString("phoneNumber"));
 						user.setPassword(rs.getString("password"));
-						
-						
+
 						user.setRole(Role.valueOf(rs.getString("role").toUpperCase()));
-						
+
 						// user.setRole(rs.getString("Role") != null ? Role.valueOf("role"):null);
 
 						return user;
@@ -104,11 +103,9 @@ public class UserDao {
 		}
 		return null;
 	}
-	
-	
-	
+
 //	get user by id
-	
+
 	public static boolean updateUser(User user) throws DAOException {
 		try (Connection con = ConnectionUtil.getConnection()) {
 			// SQL query to update an existing user in the 'users' table.
@@ -121,8 +118,8 @@ public class UserDao {
 				pst.setString(3, user.getPhoneNumber());
 				pst.setString(4, user.getPassword());
 				pst.setString(5, user.getRole().getValue());
-	 // Assuming you have a 'userId' field in the User
-																	// object.
+				// Assuming you have a 'userId' field in the User
+				// object.
 				int rowAffected = pst.executeUpdate();
 				// Prints the number of rows affected by the update query.
 				Logger.info(rowAffected + " row/rows affected");
@@ -132,12 +129,12 @@ public class UserDao {
 		}
 		return true;
 	}
-	
-	
-	
+
 //	Get User id by Email
 	public static int getUserIdByEmail(String email) throws DAOException {
 		int userId = -1; // Default value if the email is not found or an error occurs.
+
+		// User user = null;
 		try (Connection con = ConnectionUtil.getConnection()) {
 			// SQL query to retrieve the user ID by email.
 			String query = "SELECT id FROM users WHERE email=?";
@@ -148,6 +145,9 @@ public class UserDao {
 				try (ResultSet rs = psmt.executeQuery()) {
 					if (rs.next()) {
 						userId = rs.getInt("id");
+
+						// email, id, username, role
+						// user = new User();
 					}
 				}
 			}
@@ -155,7 +155,37 @@ public class UserDao {
 			throw new DAOException(e.getMessage());
 		}
 		return userId;
+//		return user;
 	}
+
+	// Get User by Email
+	public static User getUserByEmail(String email) throws DAOException {
+		User user = null; // Default value if the email is not found or an error occurs.
+
+		try (Connection con = ConnectionUtil.getConnection()) {
+
+			String query = "SELECT id, userName, email, phoneNumber,  role FROM users WHERE email=?";
+			try (PreparedStatement psmt = con.prepareStatement(query)) {
+
+				psmt.setString(1, email);
+				System.out.println(psmt);
+				try (ResultSet rs = psmt.executeQuery()) {
+					if (rs.next()) {
+
+						user = new User();
+						user.setId(rs.getInt("id"));
+						user.setEmail(rs.getString("email"));
+						user.setPhoneNumber(rs.getString("phoneNumber"));
+						user.setUserName(rs.getString("userName"));
+						user.setRole(Role.valueOf(rs.getString("role").toUpperCase()));
+
+					}
+				}
+			}
+		} catch (SQLException e) {
+			throw new DAOException(e.getMessage());
+		}
+		return user;
+	}
+
 }
-
-
