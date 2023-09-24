@@ -15,11 +15,10 @@ public class TestUserService {
 
 	static User validUser() {
 		User user = new User();
-		user.setUserName("Kingstan");
-		user.setId(1);
-		user.setEmail("king@gmail.com");
+		user.setUserName("Santhuu");
+		user.setEmail("king1@gmail.com");
 		user.setPassword("Santhu@123");
-		user.setPhoneNumber("9095297688");
+		user.setPhoneNumber("9095297681");
 		user.setRole(Role.ARTIST);
 
 		return user;

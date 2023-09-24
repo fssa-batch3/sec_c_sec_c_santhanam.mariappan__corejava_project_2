@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import com.fssa.zanarts.customexception.DAOException;
 import com.fssa.zanarts.customexception.ProductExpection;
 import com.fssa.zanarts.customexception.UserException;
 import com.fssa.zanarts.enumclass.Role;
@@ -48,8 +49,8 @@ public class TestUserDao {
 	}
 
 	@Test
-	void testValidUpdateUser() throws SQLException, UserException {
-		Assertions.assertTrue(UserDao.updateUser(validUser(), 1));
+	void testValidUpdateUser() throws SQLException, UserException, DAOException {
+		Assertions.assertTrue(UserDao.updateUser(validUser()));
 	}
 
 }

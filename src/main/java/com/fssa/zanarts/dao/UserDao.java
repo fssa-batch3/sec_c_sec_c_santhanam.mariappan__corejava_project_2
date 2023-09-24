@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.fssa.zanarts.customexception.CustomErrors;
 import com.fssa.zanarts.customexception.DAOException;
@@ -38,25 +40,19 @@ public class UserDao {
 	}
 
 //	update user
-	public static boolean updateUser(User user, int id) throws SQLException, UserException {
+	public static boolean updateUser(User user) throws SQLException, UserException, DAOException {
 
-		if (user.getId() <= 0) {
-			throw new UserException(CustomErrors.INVALID_USER_ID);
-		}
 		try (Connection con = ConnectionUtil.getConnection()) {
 
-			final String query = "UPDATE users SET username = ?, email = ?, phoneNumber = ?, password = ?, role = ?  WHERE id = ?";
+			final String query = "UPDATE users SET username = ?, email = ?, phoneNumber = ?, role = ?  WHERE id = ?";
 			try (PreparedStatement pst = con.prepareStatement(query)) {
 
 				pst.setString(1, user.getUserName());
 				pst.setString(2, user.getEmail());
 				pst.setString(3, user.getPhoneNumber());
-				pst.setString(4, user.getPassword());
-				pst.setString(5, user.getRole().getValue());
-				pst.setInt(6, id);
-
+				pst.setString(4, user.getRole().getValue());
+				pst.setInt(5, getUserIdByEmail(user.getEmail()));
 				pst.executeUpdate();
-
 			}
 
 		} catch (SQLException ex) {
@@ -86,6 +82,7 @@ public class UserDao {
 				try (ResultSet rs = psmt.executeQuery()) {
 					if (rs.next()) {
 						user = new User();
+						user.setId(rs.getInt("id"));
 						user.setEmail(rs.getString("userName"));
 						user.setPhoneNumber(rs.getString("phoneNumber"));
 						user.setPassword(rs.getString("password"));
@@ -105,30 +102,31 @@ public class UserDao {
 	}
 
 //	get user by id
-
-	public static boolean updateUser(User user) throws DAOException {
-		try (Connection con = ConnectionUtil.getConnection()) {
-			// SQL query to update an existing user in the 'users' table.
-			String query = "UPDATE users SET first_name=?, last_name=?, email=?,  mobile_num=?, address=?, gender=? WHERE user_id=?";
-			// Prepares the SQL query with the provided user details.
-			try (PreparedStatement pst = con.prepareStatement(query)) {
-				// Sets the user details in the PreparedStatement.
-				pst.setString(1, user.getUserName());
-				pst.setString(2, user.getEmail());
-				pst.setString(3, user.getPhoneNumber());
-				pst.setString(4, user.getPassword());
-				pst.setString(5, user.getRole().getValue());
-				// Assuming you have a 'userId' field in the User
-				// object.
-				int rowAffected = pst.executeUpdate();
-				// Prints the number of rows affected by the update query.
-				Logger.info(rowAffected + " row/rows affected");
-			}
-		} catch (SQLException e) {
-			throw new DAOException(e.getMessage());
-		}
-		return true;
-	}
+//
+//	public static boolean updateUser(User user) throws DAOException {
+//		try (Connection con = ConnectionUtil.getConnection()) {
+//			// SQL query to update an existing user in the 'users' table.
+//			String query = "UPDATE users SET first_name=?, last_name=?, email=?,  mobile_num=?,  gender=? WHERE user_id=?";
+//			
+//			// Prepares the SQL query with the provided user details.
+//			try (PreparedStatement pst = con.prepareStatement(query)) {
+//				// Sets the user details in the PreparedStatement.
+//				pst.setString(1, user.getUserName());
+//				pst.setString(2, user.getEmail());
+//				pst.setString(3, user.getPhoneNumber());
+//				pst.setString(4, user.getPassword());
+//				pst.setString(5, user.getRole().getValue());
+//				// Assuming you have a 'userId' field in the User
+//				// object.
+//				int rowAffected = pst.executeUpdate();
+//				// Prints the number of rows affected by the update query.
+//				Logger.info(rowAffected + " row/rows affected");
+//			}
+//		} catch (SQLException e) {
+//			throw new DAOException(e.getMessage());
+//		}
+//		return true;
+//	}
 
 //	Get User id by Email
 	public static int getUserIdByEmail(String email) throws DAOException {
@@ -188,4 +186,39 @@ public class UserDao {
 		return user;
 	}
 
+	
+	public boolean isUserExist(User user) throws DAOException {
+
+		List<String> userEmails = getAllUserEmails();
+		Logger.info(userEmails);
+
+		return userEmails.contains(user.getEmail());
+	}
+
+	
+//	getAllUserEmails
+	public List<String> getAllUserEmails() throws DAOException {
+
+		List<String> userNames = new ArrayList<>();
+
+		try (Connection con = ConnectionUtil.getConnection()) {
+
+			String query = "SELECT email FROM users";
+
+			try (PreparedStatement smt = (PreparedStatement) con.createStatement()) {
+
+				try (ResultSet resultSet = smt.executeQuery(query)) {
+
+					while (resultSet.next()) {
+						userNames.add(resultSet.getString(1));
+					}
+				}
+			}
+
+		} catch (SQLException e) {
+			throw new DAOException(e.getMessage());
+		}
+
+		return userNames;
+	}
 }

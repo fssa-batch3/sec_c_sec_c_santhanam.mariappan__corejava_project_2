@@ -25,7 +25,7 @@ public class ProductService {
 	 * @return {@code true} if the product was successfully added, {@code false}
 	 *         otherwise.
 	 * @throws SQLException           If a database error occurs.
-	 * @throws DAOException 
+	 * @throws DAOException
 	 * @throws ClassNotFoundException
 	 * @throws CustomExpection        If there is a custom validation error.
 	 */
@@ -56,7 +56,7 @@ public class ProductService {
 		log.info("Sucessfully product update");
 		return true;
 	}
- 
+
 	/**
 	 * Retrieves details of all products from the database.
 	 *
@@ -72,20 +72,16 @@ public class ProductService {
 //		ProductDao.
 //		return true;
 //	}
-	
-	
-	// reading product
-		public static Product readProduct(int id) throws SQLException, DAOException, ProductExpection {
 
-			if (ProductValidator.validateProductId(id)) {
-				return ProductDao.readProduct(id);
-			}
-			log.info("Sucessfully product shown");
-			return null;
+	// reading product
+	public static Product readProduct(int id) throws SQLException, DAOException, ProductExpection {
+
+		if (ProductValidator.validateProductId(id)) {
+			return ProductDao.readProduct(id);
 		}
-		
-		
-		
+		log.info("Sucessfully product shown");
+		return null;
+	}
 
 	public List<Product> getAllProductDetails() throws ProductExpection, DAOException {
 		ProductDao pd = new ProductDao();
@@ -93,10 +89,18 @@ public class ProductService {
 		return pd.getAllProductDetails();
 
 	}
+
 	public List<Product> getArtistProductDetails(String email) throws ProductExpection, DAOException {
 		ProductDao pd = new ProductDao();
 		log.info("Successfully All product showed");
 		return pd.getArtistProducts(UserDao.getUserIdByEmail(email));
+
+	}
+
+	public List<Product> getArtistProductDetailsById(int id) throws ProductExpection, DAOException {
+		ProductDao pd = new ProductDao();
+		log.info("Successfully Artist product showed");
+		return pd.getArtistProducts(id);
 
 	}
 
@@ -118,6 +122,12 @@ public class ProductService {
 
 		log.info("Successfully product Deleted");
 		return true;
+	}
+
+	public static List<Product> getAllProductDetailsByCategory(String categoryName)
+			throws SQLException, ProductExpection, DAOException {
+
+		return ProductDao.getAllProductDetailsByCategory(categoryName);
 	}
 
 }

@@ -29,7 +29,19 @@ public enum Types {
 	/**
 	 * Hyperrealism art type.
 	 */
-	HYPERREALISM("hyperrealism");
+	HYPERREALISM("hyperrealism"),
+
+	OILPAINTING("oilpainting"),
+
+	ILLUSTRATION("illustration"),
+
+	PHOTOGRAPHY("photography"),
+
+	DIGITAL("digital"),
+
+	POPART("popart"),
+
+	MODERNPAINTING("modernpainting");
 
 	String value;
 
@@ -55,9 +67,9 @@ public enum Types {
 	public static Types valueToEnumMapping(String value) {
 		// Create a mapping of values to enum constants using a HashMap
 		HashMap<String, Types> valueToEnumMapping = new HashMap<String, Types>();
-
+		System.out.println("value : "+value);
 		// Iterate through all BloodGroup enum constants and populate the mapping
-		for (Types type : Types.values()) { 
+		for (Types type : Types.values()) {
 			valueToEnumMapping.put(type.getValue(), type);
 		}
 

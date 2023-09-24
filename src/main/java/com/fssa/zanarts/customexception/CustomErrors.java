@@ -112,4 +112,7 @@ public class CustomErrors {
 //	method fail 
 	public static final String ORDER_ID = " Order id can't be zero";
 
+//	order history
+	public static final String ORDER_RETRIEVAL_FAILED = " Order history method is failed";
+	
 }

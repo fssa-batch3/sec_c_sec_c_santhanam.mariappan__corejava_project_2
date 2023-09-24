@@ -1,20 +1,30 @@
 package com.fssa.zanarts.model;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import com.fssa.zanarts.enumclass.OrderStatus;
-import com.fssa.zanarts.enumclass.OrderedProduct;
 
 public class Order {
 
 	private int userID;
 	private String productname;
+	private int productId;
 	private double price;
 	private int orderId;
 	private int quantity;
 	private OrderStatus status;
 	private double totalAmount;
 	private String notes;
+	private LocalDateTime uploadTime;
+
+	public LocalDateTime getUploadTime() {
+		return uploadTime;
+	}
+
+	public void setUploadTime(LocalDateTime uploadTime) {
+		this.uploadTime = uploadTime;
+	}
 
 	public OrderStatus getStatus() {
 		return status;
@@ -46,6 +56,14 @@ public class Order {
 
 	public void setProductname(String productname) {
 		this.productname = productname;
+	}
+
+	public int getProductId() {
+		return productId;
+	}
+
+	public void setProductId(int productId) {
+		this.productId = productId;
 	}
 
 	public int getOrderId() {
@@ -80,22 +98,16 @@ public class Order {
 		this.notes = notes;
 	}
 
-	public Order(int userID, String productname, double price, int orderId, int quantity, OrderStatus status,
-			double totalAmount, String notes) {
-		super();
-		this.userID = userID;
-		this.productname = productname;
-		this.price = price;
-		this.orderId = orderId;
-		this.quantity = quantity;
 
-		this.status = status;
-		this.totalAmount = totalAmount;
-		this.notes = notes;
+	@Override
+	public String toString() {
+		return "Order [userID=" + userID + ", productname=" + productname + ", productId=" + productId + ", price="
+				+ price + ", orderId=" + orderId + ", quantity=" + quantity + ", status=" + status + ", totalAmount="
+				+ totalAmount + ", notes=" + notes + ", uploadTime=" + uploadTime + "]";
 	}
 
 	public Order() {
 		// TODO Auto-generated constructor stub
 	}
-	
+
 }

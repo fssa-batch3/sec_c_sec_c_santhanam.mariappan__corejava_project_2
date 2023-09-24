@@ -44,7 +44,7 @@ public class ProductDao {
 				pst.setString(6, product.getCategory().getTypes());
 				pst.setInt(7, product.getSize().getWidth());
 				pst.setInt(8, product.getSize().getHeight());
-				System.out.println(product.getUserId()+"mfdpo");
+				System.out.println(product.getUserId() + "mfdpo");
 				pst.setInt(9, Integer.parseInt(product.getUserId()));
 
 				pst.executeUpdate();
@@ -205,6 +205,44 @@ public class ProductDao {
 		return product;
 	}
 
+//	get product by id
+	public static Product getProductById(int id) throws DAOException, SQLException {
+
+		try (Connection connection = ConnectionUtil.getConnection()) {
+			// Create update statement using task id
+
+			String query = "SELECT * FROM products WHERE id = ? ";
+
+			try (PreparedStatement pst = connection.prepareStatement(query)) {
+
+				pst.setInt(1, id);
+
+				ResultSet rs = pst.executeQuery();
+
+				Product product = new Product();
+
+				while (rs.next()) {
+
+					product.setArtistname(rs.getString("artistname"));
+					product.setImageurl(rs.getString("imageurl"));
+					product.setPrice(rs.getDouble("price"));
+					product.setCategory(Types.valueToEnumMapping(rs.getString("category").toLowerCase()));
+					product.setname(rs.getString("productname"));
+					Dimension dim = new Dimension();
+					dim.setHeight(rs.getInt("height"));
+					dim.setWidth(rs.getInt("width"));
+					product.setSize(dim);
+					product.setUploadTime(rs.getTimestamp("updateTimestamp").toLocalDateTime());
+					product.setProductDescription(rs.getString("productDescription"));
+				}
+
+				return product;
+			}
+		} catch (SQLException e) {
+			throw new DAOException("Get products by id method is failed");
+		}
+	}
+
 	// Method to retrieve and print all product details from the database.
 	// Throws SQLException if there's an error with the database operation.
 	public List<Product> getAllProductDetails() throws DAOException {
@@ -218,6 +256,63 @@ public class ProductDao {
 				try (ResultSet rs = st.executeQuery(query)) {
 
 					while (rs.next()) {
+
+						Product product = new Product();
+						product.setArtistname(rs.getString("artistname"));
+						product.setId(rs.getInt("id"));
+						product.setImageurl(rs.getString("imageurl"));
+						product.setPrice(rs.getDouble("price"));
+
+						product.setCategory(Types.valueToEnumMapping(rs.getString("category").toLowerCase()));
+						product.setname(rs.getString("productname"));
+						Dimension dim = new Dimension();
+						dim.setHeight(rs.getInt("height"));
+						dim.setWidth(rs.getInt("width"));
+						product.setSize(dim);
+						product.setUploadTime(rs.getTimestamp("updateTimestamp").toLocalDateTime());
+						product.setId(rs.getInt("id"));
+						product.setProductDescription(rs.getString("productDescription"));
+
+						productList.add(product);
+						System.out.println(product.getCategory());
+//
+//						System.out.println("ID: " + rs.getInt("id") + ", Product Name: " + rs.getString("name")
+//								+ ", Artist Name: " + rs.getString("artistname") + ", Price: " + rs.getDouble("price")
+//								+ ", Upload Time: " + rs.getString("updateTimestamp") + ", Product Description: "
+//								+ rs.getString("productDescription") + ", imageurl: " + rs.getString("imageurl")
+//								+ ", width: " + rs.getInt("width") + ", Height: " + rs.getInt("height") + ", Category: "
+//								+ rs.getString("height"));
+
+					}
+
+				}
+
+			}
+
+		} catch (SQLException ex) {
+			throw new DAOException(CustomErrors.DETAILS_ERROR);
+		}
+
+		return productList;
+
+	}
+
+	public static List<Product> getAllProductDetailsByCategory(String categoryName) throws DAOException {
+
+		List<Product> productList = new ArrayList<>();
+		try (Connection con = ConnectionUtil.getConnection()) {
+			
+			
+			final String query = "SELECT * FROM products where category=?";
+			try (PreparedStatement pst = con.prepareStatement(query)) {
+
+				pst.setString(1,categoryName);
+			
+				System.out.println("query in dao : "+pst);
+				try (ResultSet rs = pst.executeQuery()) {
+
+					while (rs.next()) {
+						
 
 						Product product = new Product();
 						product.setArtistname(rs.getString("artistname"));

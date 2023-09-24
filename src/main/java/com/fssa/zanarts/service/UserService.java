@@ -11,6 +11,7 @@ import com.fssa.zanarts.validator.UserValidator;
 
 public class UserService {
 	static Logger log = new Logger();
+	UserDao userDao = new UserDao();
 
 	public static boolean addUser(User user) throws SQLException, UserException {
 		System.out.println(user.toString());
@@ -36,5 +37,16 @@ public class UserService {
 		return UserDao.login(email, password);
 	}
 
-	 
+	// Method to check if a user exists based on the provided user object
+	public boolean isUserExist(User user) throws UserException, DAOException {
+
+		// Validate the user object using the UserValidator
+		if (UserValidator.validate(user)) {
+			// Check if the user exists in the DAO
+			return userDao.isUserExist(user);
+		}
+
+		return false;
+	}
+
 }

@@ -85,7 +85,7 @@ class TestProductService {
 //	view
 	@Test
 	void testValidGetAllProductDetails() throws DAOException, ProductExpection {
-		ProductService ps = new ProductService();
+		ProductService ps = new ProductService(); 
 		List<Product> productList = ps.getAllProductDetails();
  		for (Product ele : productList) {
 			Logger.info(ele);
@@ -98,6 +98,14 @@ class TestProductService {
 		assertDoesNotThrow(() -> productservices.readProduct(1));
 	}
 
+	@Test 
+	void testgetArtistProductDetailsById() throws ProductExpection, SQLException, DAOException {
+		ProductService ps = new ProductService();
+		List<Product> productList = ps.getArtistProductDetailsById(11);
+ 		for (Product ele : productList) {
+			Logger.info(ele);
+		}
+	}
 	 
 
 }
