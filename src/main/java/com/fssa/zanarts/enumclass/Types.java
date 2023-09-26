@@ -36,6 +36,8 @@ public enum Types {
 	ILLUSTRATION("illustration"),
 
 	PHOTOGRAPHY("photography"),
+	
+	CANVA("canva"),
 
 	DIGITAL("digital"),
 

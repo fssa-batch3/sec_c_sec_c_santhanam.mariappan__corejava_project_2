@@ -8,7 +8,6 @@ import com.fssa.zanarts.customexception.CustomErrors;
 import com.fssa.zanarts.customexception.OrderException;
 import com.fssa.zanarts.enumclass.OrderStatus;
 import com.fssa.zanarts.model.Order;
-import com.fssa.zanarts.model.Orderedproduct;
 
 public class OrderValidator {
 
@@ -58,16 +57,7 @@ public class OrderValidator {
 		}
 		return true;
 	}
-	
- 
 
-//	list
-	public static boolean validateProductsList(List<Orderedproduct> productsList) throws OrderException {
-		if (productsList == null || productsList.isEmpty()) {
-			throw new OrderException(CustomErrors.INVALID_LIST);
-		}
-		return true;
-	}
 
 //	total amount
 

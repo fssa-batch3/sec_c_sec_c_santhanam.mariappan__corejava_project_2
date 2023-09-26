@@ -14,12 +14,31 @@ public class UserValidator {
 			throw new UserException(CustomErrors.USER_NULL);
 		}
 		validateUserName(user.getUserName());
+		validatePhoneNumber(user.getPhoneNumber());
+		validatePassword(user.getPassword());
+		validateEmail(user.getEmail());
+		
 		return true;
 
 	}
  
+	
+	public static boolean validateUpdate(User user) throws UserException {
+
+		if (user == null) {
+			throw new UserException(CustomErrors.USER_NULL);
+		}
+		validateUserName(user.getUserName());
+		validatePhoneNumber(user.getPhoneNumber());
+	
+		
+		
+		
+		return true;
+
+	}
 	public static boolean validateUserName(String userName) throws UserException {
-		if (userName == null || "".equals(userName.trim())) {
+		if (userName == null ||userName.trim().isEmpty()) {
 			throw new UserException(CustomErrors.USER_NAME_NULL);
 		}
 

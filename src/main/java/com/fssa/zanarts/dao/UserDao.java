@@ -40,18 +40,19 @@ public class UserDao {
 	}
 
 //	update user
-	public static boolean updateUser(User user) throws SQLException, UserException, DAOException {
+	public static boolean updateUser(User user) throws SQLException, DAOException {
 
 		try (Connection con = ConnectionUtil.getConnection()) {
 
-			final String query = "UPDATE users SET username = ?, email = ?, phoneNumber = ?, role = ?  WHERE id = ?";
+			final String query = "UPDATE users SET userName = ?, phoneNumber = ? WHERE id = ?";
+
 			try (PreparedStatement pst = con.prepareStatement(query)) {
 
 				pst.setString(1, user.getUserName());
-				pst.setString(2, user.getEmail());
-				pst.setString(3, user.getPhoneNumber());
-				pst.setString(4, user.getRole().getValue());
-				pst.setInt(5, getUserIdByEmail(user.getEmail()));
+
+				pst.setString(2, user.getPhoneNumber());
+
+				pst.setInt(3, getUserIdByEmail(user.getEmail()));
 				pst.executeUpdate();
 			}
 
@@ -83,22 +84,24 @@ public class UserDao {
 					if (rs.next()) {
 						user = new User();
 						user.setId(rs.getInt("id"));
-						user.setEmail(rs.getString("userName"));
+						user.setUserName(rs.getString("userName"));
+						user.setEmail(rs.getString("email"));
 						user.setPhoneNumber(rs.getString("phoneNumber"));
 						user.setPassword(rs.getString("password"));
 
 						user.setRole(Role.valueOf(rs.getString("role").toUpperCase()));
 
-						// user.setRole(rs.getString("Role") != null ? Role.valueOf("role"):null);
-
 						return user;
+					} else {
+						// Invalid credentials, throw a DAOException
+						throw new DAOException("Invalid credentials");
 					}
 				}
 			}
 		} catch (SQLException e) {
 			throw new DAOException(e.getMessage());
 		}
-		return null;
+
 	}
 
 //	get user by id
@@ -130,7 +133,7 @@ public class UserDao {
 
 //	Get User id by Email
 	public static int getUserIdByEmail(String email) throws DAOException {
-		int userId = -1; // Default value if the email is not found or an error occurs.
+		int userId = 0; // Default value if the email is not found or an error occurs.
 
 		// User user = null;
 		try (Connection con = ConnectionUtil.getConnection()) {
@@ -162,7 +165,7 @@ public class UserDao {
 
 		try (Connection con = ConnectionUtil.getConnection()) {
 
-			String query = "SELECT id, userName, email, phoneNumber,  role FROM users WHERE email=?";
+			String query = "SELECT id, userName, email, phoneNumber, role FROM users WHERE email=?";
 			try (PreparedStatement psmt = con.prepareStatement(query)) {
 
 				psmt.setString(1, email);
@@ -186,7 +189,6 @@ public class UserDao {
 		return user;
 	}
 
-	
 	public boolean isUserExist(User user) throws DAOException {
 
 		List<String> userEmails = getAllUserEmails();
@@ -195,7 +197,6 @@ public class UserDao {
 		return userEmails.contains(user.getEmail());
 	}
 
-	
 //	getAllUserEmails
 	public List<String> getAllUserEmails() throws DAOException {
 

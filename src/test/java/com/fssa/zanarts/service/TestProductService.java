@@ -22,7 +22,7 @@ import com.fssa.zanarts.model.Product;
 class TestProductService {
 
 	static Product validProduct() {
-		
+
 		Dimension dm = new Dimension(100, 100);
 		Product product = new Product();
 		product.setname("Bharathi");
@@ -30,24 +30,22 @@ class TestProductService {
 		product.setId(1);
 		product.setPrice(400.0);
 		product.setCategory(Types.WATERCOLOUR);
-		product.setSize(dm); 
+		product.setSize(dm);
 		product.setProductDescription("My Second art");
 		product.setUrl("https://iili.io/Hy1IArb.jpg");
 		product.setUploadTime(null);
-		return product;	
+		return product;
 	}
 
-	
 	/**
 	 * Test adding a valid product.
 	 *
 	 * @throws CustomExpection        If a custom exception occurs.
 	 * @throws SQLException           If an SQL exception occurs.
-	 * @throws DAOException 
+	 * @throws DAOException
 	 * @throws ClassNotFoundException
 	 */
-	
-	
+
 	@Test
 	void testValidAddProduct() throws ProductExpection, SQLException, DAOException {
 
@@ -76,7 +74,7 @@ class TestProductService {
 	 * @throws SQLException           If an SQL exception occurs.
 	 * @throws IllegalAccessException If an IllegalAccessException occurs.
 	 */
-	
+
 	@Test
 	void testValidDeleteProduct() throws ProductExpection, SQLException {
 		Assertions.assertTrue(ProductService.deleteProduct(1));
@@ -85,9 +83,9 @@ class TestProductService {
 //	view
 	@Test
 	void testValidGetAllProductDetails() throws DAOException, ProductExpection {
-		ProductService ps = new ProductService(); 
+		ProductService ps = new ProductService();
 		List<Product> productList = ps.getAllProductDetails();
- 		for (Product ele : productList) {
+		for (Product ele : productList) {
 			Logger.info(ele);
 		}
 	}
@@ -98,14 +96,13 @@ class TestProductService {
 		assertDoesNotThrow(() -> productservices.readProduct(1));
 	}
 
-	@Test 
+	@Test
 	void testgetArtistProductDetailsById() throws ProductExpection, SQLException, DAOException {
 		ProductService ps = new ProductService();
 		List<Product> productList = ps.getArtistProductDetailsById(11);
- 		for (Product ele : productList) {
+		for (Product ele : productList) {
 			Logger.info(ele);
 		}
 	}
-	 
 
 }

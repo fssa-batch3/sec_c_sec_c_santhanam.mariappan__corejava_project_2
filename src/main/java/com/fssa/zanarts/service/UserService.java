@@ -25,7 +25,7 @@ public class UserService {
 
 //	update 
 	public static boolean updateUser(User user) throws SQLException, UserException, DAOException {
-		if (UserValidator.validate(user)) {
+		if (UserValidator.validateUpdate(user)) {
 			UserDao.updateUser(user);
 		}
 		log.info("Sucessfully User Details update");
