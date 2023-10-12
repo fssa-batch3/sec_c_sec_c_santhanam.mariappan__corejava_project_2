@@ -297,6 +297,8 @@ public class ProductDao {
 
 	}
 
+	
+	//get category details by ennum
 	public static List<Product> getAllProductDetailsByCategory(String categoryName) throws DAOException {
 
 		List<Product> productList = new ArrayList<>();
@@ -304,6 +306,7 @@ public class ProductDao {
 			
 			
 			final String query = "SELECT * FROM products where category=?";
+			
 			try (PreparedStatement pst = con.prepareStatement(query)) {
 
 				pst.setString(1,categoryName);
@@ -319,7 +322,6 @@ public class ProductDao {
 						product.setId(rs.getInt("id"));
 						product.setImageurl(rs.getString("imageurl"));
 						product.setPrice(rs.getDouble("price"));
-
 						product.setCategory(Types.valueToEnumMapping(rs.getString("category").toLowerCase()));
 						product.setname(rs.getString("productname"));
 						Dimension dim = new Dimension();
@@ -331,14 +333,8 @@ public class ProductDao {
 						product.setProductDescription(rs.getString("productDescription"));
 
 						productList.add(product);
+						
 						System.out.println(product.getCategory());
-//
-//						System.out.println("ID: " + rs.getInt("id") + ", Product Name: " + rs.getString("name")
-//								+ ", Artist Name: " + rs.getString("artistname") + ", Price: " + rs.getDouble("price")
-//								+ ", Upload Time: " + rs.getString("updateTimestamp") + ", Product Description: "
-//								+ rs.getString("productDescription") + ", imageurl: " + rs.getString("imageurl")
-//								+ ", width: " + rs.getInt("width") + ", Height: " + rs.getInt("height") + ", Category: "
-//								+ rs.getString("height"));
 
 					}
 

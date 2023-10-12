@@ -38,7 +38,9 @@ public class UserValidator {
 
 	}
 	public static boolean validateUserName(String userName) throws UserException {
-		if (userName == null ||userName.trim().isEmpty()) {
+		String trimmedUsername = userName.replaceAll("^\\s+|\\s+$", "");
+		if (trimmedUsername == null ||trimmedUsername.trim().isEmpty()) {
+			
 			throw new UserException(CustomErrors.USER_NAME_NULL);
 		}
 

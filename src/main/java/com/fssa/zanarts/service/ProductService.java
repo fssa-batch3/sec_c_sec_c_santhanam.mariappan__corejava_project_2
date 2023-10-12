@@ -97,7 +97,14 @@ public class ProductService {
 
 	}
 
-	public List<Product> getArtistProductDetailsById(int id) throws ProductExpection, DAOException {
+	public List<Product> getArtistProductDetailsById(int id) throws DAOException {
+		ProductDao pd = new ProductDao();
+		log.info("Successfully Artist product showed");
+		return pd.getArtistProducts(id);
+
+	}
+
+	public List<Product> getArtistProductDetailsByPrice(int id) throws DAOException {
 		ProductDao pd = new ProductDao();
 		log.info("Successfully Artist product showed");
 		return pd.getArtistProducts(id);
